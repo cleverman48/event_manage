@@ -35,7 +35,7 @@
     <!-- ============================================================== -->
     <div class="splash-container">
         <div class="card ">
-            <div class="card-header text-center"><a href=""><img class="logo-img" src="./public/image/color_no_back.png" alt="logo"></a><span class="splash-description">Please enter your user information.</span></div>
+            <div class="card-header text-center"><a href=""><img class="logo-img" src="./public/image/logo.png" alt="logo"></a><span class="splash-description">Please enter your user information.</span></div>
             <div class="card-body">
                 <form>
                     <div class="form-group">
