@@ -8,9 +8,6 @@ require_once 'functions.php';
 spl_autoload_register(function ($className) {
     $className = str_replace('\\', '/', $className);
     require_once __DIR__ . '/controllers/' . $className . '.php';
-    // require_once __DIR__ . '/controllers/attender/' . $className . '.php';
-    // require_once __DIR__ . '/controllers/manager/' . $className . '.php';
-    // require_once __DIR__ . '/controllers/organizer/' . $className . '.php';
 });
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -34,6 +31,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $action = $_POST['action'] ?? 'login';
     switch ($action) {
         case 'login':
+            $controller = new LoginController();
+            $controller->login();
             // Handle POST request for login
             // Process login form submission
             break;

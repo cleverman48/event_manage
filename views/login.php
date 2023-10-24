@@ -1,10 +1,28 @@
+<?php 
+$email = isset( $_GET['email'] ) ? $_GET['email'] : '';
+$password = isset( $_GET['password'] ) ? $_GET['password'] : '';
+$email_err = isset( $_GET['email_err']) ? $_GET['email_err'] : '';
+if($email_err === 'empty_email' ){
+    $email_err = 'メールアドレスを入力してください。';
+}elseif( $email_err === 'invalid_email' ){
+    $email_err = 'メールアドレス形式が正しくありません。';
+}
+$password_err = isset( $_GET['password_err']) ? $_GET['password_err'] : '';
+if($password_err === 'empty_password'){
+    $password_err = 'パスワードスを入力してください。';
+}
+$login_err = isset($_GET['login_err']) ? '無効なメールまたはパスワード。' : '';
+if(!empty($login_err)){
+    echo '<div class="alert alert-danger">' . $login_err . '</div>';
+}        
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>ログイン</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="./assets/vendor/bootstrap/css/bootstrap.min.css">
     <link href="./assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
@@ -35,29 +53,24 @@
     <!-- ============================================================== -->
     <div class="splash-container">
         <div class="card ">
-            <div class="card-header text-center"><a href=""><img class="logo-img" src="./public/image/logo.png" alt="logo"></a><span class="splash-description">Please enter your user information.</span></div>
-            <div class="card-body">
-                <form>
-                    <div class="form-group">
-                        <input class="form-control form-control-lg" id="username" type="text" placeholder="Username" autocomplete="off">
-                    </div>
-                    <div class="form-group">
-                        <input class="form-control form-control-lg" id="password" type="password" placeholder="Password">
-                    </div>
-                    <div class="form-group">
-                        <label class="custom-control custom-checkbox">
-                            <input class="custom-control-input" type="checkbox"><span class="custom-control-label">Remember Me</span>
-                        </label>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
-                </form>
+            <img class="logo-img mx-auto mt-3" src="./public/image/browser.png" alt="logo">
+            <div class="card-header text-center flex-direction-column pt-2">
+                <h3>ログイン</h3>
+                <p>はじめてご利用の方は<a href="index.php?action=register" class="footer-link pb-1 text-success">新規登録</a></p>
             </div>
-            <div class="card-footer bg-white p-0  ">
-                <div class="card-footer-item card-footer-item-bordered">
-                    <a href="#" class="footer-link">Create An Account</a></div>
-                <div class="card-footer-item card-footer-item-bordered">
-                    <a href="#" class="footer-link">Forgot Password</a>
-                </div>
+            <div class="card-body">
+                <p>メールアドレスでログイン</p>
+                <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                    <div class="form-group">
+                        <input class="form-control form-control-lg <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $email; ?>" id="email" name="email" type="text" placeholder="メール">
+                        <span class="invalid-feedback"><?php echo $email_err; ?></span>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control form-control-lg <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>" id="password" type="password" name="password" placeholder="パスワード">
+                        <span class="invalid-feedback"><?php echo $password_err; ?></span>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">同意してログイン</button>
+                </form>
             </div>
         </div>
     </div>
