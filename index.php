@@ -4,30 +4,34 @@ session_start();
 // Include necessary files
 require_once 'config.php';
 require_once 'functions.php';
-require_once __DIR__ . '/controllers/LoginController.php';
-require_once __DIR__ . '/controllers/RegistrationController.php';
 
-// Handle routing
-$action = $_GET['action'] ?? 'login';
-
-// Handle routing
-$action = $_GET['action'] ?? 'login';
+spl_autoload_register(function ($className) {
+    $className = str_replace('\\', '/', $className);
+    require_once __DIR__ . '/controllers/' . $className . '.php';
+    // require_once __DIR__ . '/controllers/attender/' . $className . '.php';
+    // require_once __DIR__ . '/controllers/manager/' . $className . '.php';
+    // require_once __DIR__ . '/controllers/organizer/' . $className . '.php';
+});
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    // Handle routing
+    $action = $_GET['action'] ?? 'login';
     switch ($action) {
         case 'login':
-            // Handle GET request for login page
-            // Display login form
+            $controller = new LoginController();
+            $controller->login();
             break;
         case 'register':
-            // Handle GET request for registration page
-            // Display registration form
+            $controller = new RegistrationController();
+            $controller->register();
             break;
         default:
-            // Handle invalid GET request
+            // Handle invalid action
             break;
     }
 } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Handle routing
+    $action = $_POST['action'] ?? 'login';
     switch ($action) {
         case 'login':
             // Handle POST request for login
