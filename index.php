@@ -15,8 +15,16 @@ spl_autoload_register(function ($className) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     // Handle routing
-    $action = $_GET['action'] ?? 'login';
+    $action = $_GET['action'] ?? 'welcome';
     switch ($action) {
+        case 'welcome':
+            $controller = new WelcomeController();
+            $controller->index();
+            break;
+        case 'oganizer_menu':
+            $controller = new WelcomeController();
+            $controller->oganizer_menu();
+            break;
         case 'login':
             $controller = new LoginController();
             $controller->login();
