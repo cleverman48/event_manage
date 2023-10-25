@@ -7,7 +7,17 @@ require_once 'functions.php';
 
 spl_autoload_register(function ($className) {
     $className = str_replace('\\', '/', $className);
-    require_once __DIR__ . '/controllers/' . $className . '.php';
+    
+    if (strpos($className, 'Controller') !== false) {
+        // Load controller class
+        require_once __DIR__ . '/controllers/' . $className . '.php';
+    } elseif (strpos($className, 'Model') !== false) {
+        // Load model class
+        require_once __DIR__ . '/models/' . $className . '.php';
+    } elseif (strpos($className, 'Table') !== false) {
+        // Load tabel class
+        require_once __DIR__ . '/migrations/' . $className . '.php';
+    }
 });
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -30,6 +40,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $controller = new RegistrationController();
             $controller->register();
             break;
+        case 'reset':
+            $controller = new LoginController();
+            $controller->reset();
+            break;
         default:
             // Handle invalid action
             break;
@@ -41,12 +55,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         case 'login':
             $controller = new LoginController();
             $controller->login();
-            // Handle POST request for login
-            // Process login form submission
             break;
         case 'register':
-            // Handle POST request for registration
-            // Process registration form submission
+            $controller = new RegistrationController();
+            $controller->register();
             break;
         default:
             // Handle invalid POST request

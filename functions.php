@@ -3,13 +3,19 @@
 
 function sanitizeInput($input)
 {
-    // Implement input sanitization logic here
+    $input = trim($input);
+
+    // Remove backslashes
+    $input = stripslashes($input);
+
+    // Convert special characters to HTML entities
+    $input = htmlspecialchars($input);
     return $input;
 }
 
 function hashPassword($password)
 {
-    // Implement password hashing logic here
-    return $password;
+    $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+    return $hashedPassword;
 }
 ?>
