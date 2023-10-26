@@ -20,7 +20,6 @@
 <script src="assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
 <script src="assets/vendor/slimscroll/jquery.slimscroll.js"></script>
 <script src="assets/libs/js/main-js.js"></script>
-<script src="assets/vendor/inputmask/js/jquery.inputmask.bundle.js"></script>
 
 </body>
 </html>
