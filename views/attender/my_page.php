@@ -3,7 +3,7 @@
         <div class="row"></div>
         <?php
         $attender = new AttendController();
-        $user = $attender->get($_SESSION['login_userID'])[0];
+        $user = $attender->get($_SESSION['login_userID']);
         ?>
         <div class="card main-center px-3 py-3">
             <div class="card-header px-0 py-0">

@@ -1,7 +1,7 @@
 <div class="dashboard-wrapper mx-auto mt-2">
     <?php
     $attender = new AttendController();
-    $user = $attender->get($_SESSION['login_userID'])[0];
+    $user = $attender->get($_SESSION['login_userID']);
     ?>
     <section style="background-color: #eee;">
         <div class="container py-5">

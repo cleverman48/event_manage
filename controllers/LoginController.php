@@ -1,4 +1,5 @@
 <?php
+require_once 'models/UserModel.php';
 class LoginController
 {
     public function login()

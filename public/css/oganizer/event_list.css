@@ -1,0 +1,48 @@
+.top-board{
+    width: calc(100vw - 264px);
+    height: 100%;
+    position: fixed;
+    left: 275px;
+    top:70px;
+    /* background-color:aqua; */
+    padding: 20px;
+    overflow-y: scroll;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  th {
+    background-color: #f2f2f2;
+  }
+  .active {
+    background-color: #4CAF50;
+    color: white;
+  }
+
+  button {
+    background-color: white;
+    border: 1px solid black;
+    color: black;
+    cursor: pointer;
+    margin: 0 5px;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+
+  button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  #page-buttons {
+    text-align: center;
+    margin-top: 10px;
+  }
+  .s_button{
+    background-color: #c9ad3d;
+  }

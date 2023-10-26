@@ -18,11 +18,12 @@ function hashPassword($password)
 }
 function my_avatar()
 {
-    global $db;
+    global $event_db;
+    
     $userID = isset($_SESSION['login_userID']) ? $_SESSION['login_userID'] : '';
-    if ($userID !== '') {
+    if ($userID != '') {
         $sql = "SELECT avatar FROM attenders WHERE userID = :userID";
-        $stmt = $db->prepare($sql);
+        $stmt = $event_db->prepare($sql);
         $stmt->bindParam(':userID', $userID);
         $stmt->execute();
 
@@ -34,11 +35,11 @@ function my_avatar()
 }
 function url2link($text)
 {
-    $pattern = '/(http:\/\/\S+)/';
+    $pattern = '/(https:\/\/\S+)/';
     $replacement = '<a href="$1">$1</a>';
-
+    
     $linkedText = preg_replace($pattern, $replacement, $text);
-
+    
     return $linkedText;
 }
 ?>

@@ -1,15 +1,16 @@
 <?php
+require_once 'models/AttenderModel.php';
 class AttendController
 {
     private $db;
     public function __construct(){
-        global $db;
-        $this->db = $db;
+        global $event_db;
+        $this->db = $event_db;
     }
-    public function event_list()
+    public function attend_event()
     {
         require 'views/header.php';
-        require 'views/attender/event_list.php';
+        require 'views/attender/attend_event.php';
         require 'views/footer.php';
     }
     public function attender_list()
@@ -42,23 +43,12 @@ class AttendController
     }
     public function get($userID)
     {
-        $sql = "SELECT a.*, u.firstname, u.lastname, u.email
-                FROM attenders AS a
-                JOIN users AS u ON a.userID = u.userID
-                WHERE a.userID = :userID";
-
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':userID', $userID);
-        $stmt->execute();
-
-        // Fetch all the data
-        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        return $data;
+        $attenderModel = new AttenderModel();
+        return $attenderModel->get($userID);
     }
     public function attender_update()
     {
-        $attenderModel = new UserModel();
+        $attenderModel = new AttenderModel();
         $attenderModel->updateAttender();
     }
 }

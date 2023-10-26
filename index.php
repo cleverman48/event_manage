@@ -2,33 +2,22 @@
 session_start();
 
 // Include necessary files
-require_once 'config.php';
-require_once 'functions.php';
+require_once 'library/functions.php';
+require_once 'library/config.php';
 
-spl_autoload_register(function ($className) {
-    $className = str_replace('\\', '/', $className);
-
-    if (strpos($className, 'Controller') !== false) {
-        $classPath = __DIR__ . '/controllers/' . $className . '.php';
-
-        if (file_exists($classPath)) {
-            require_once $classPath;
-        } else {
-            if (strpos($className, 'Attend') !== false) {
-                $classPath = __DIR__ . '/controllers/attender/' . $className . '.php';
-            }
-            if (file_exists($classPath)) {
-                require_once $classPath;
-            }
-        }
-    } elseif (strpos($className, 'Model') !== false) {
-        // Load model class
-        require_once __DIR__ . '/models/' . $className . '.php';
-    } elseif (strpos($className, 'Table') !== false) {
-        // Load tabel class
-        require_once __DIR__ . '/migrations/' . $className . '.php';
+function requireFiles($directory) {
+    $files = glob($directory . '/*.php'); // Get PHP files in the current directory
+    foreach ($files as $file) {
+        require_once $file;
     }
-});
+    $subdirectories = glob($directory . '/*', GLOB_ONLYDIR); // Get subdirectories
+    foreach ($subdirectories as $subdirectory) {
+        requireFiles($subdirectory); // Recursively require files in subdirectories
+    }
+    
+}
+$directory = __DIR__ . '/controllers'; // Specify the directory path
+requireFiles($directory);
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     // Handle routing
@@ -37,6 +26,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         case 'welcome':
             $controller = new WelcomeController();
             $controller->index();
+            break;
+        case 'event_list':
+            $controller = new WelcomeController();
+            $controller->event_list();
+            break;
+        case 'event_regist':
+            $controller = new WelcomeController();
+            $controller->event_regist();
             break;
         case 'login':
             $controller = new LoginController();
@@ -54,13 +51,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $controller = new LoginController();
             $controller->reset();
             break;
-        case 'event_list':
+        case 'attend_event':
             $controller = new AttendController();
             if (!isset($_SESSION['login_userID'])) {
                 header("Location: index.php?action=login");
                 exit;
             }
-            $controller->event_list();
+            $controller->attend_event();
             break;
         case 'attender_list':
             $controller = new AttendController();
@@ -86,14 +83,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             }
             $controller->previewProfile();
             break;
-        case 'oganizer_menu':
-            $controller = new WelcomeController();
-            if (!isset($_SESSION['login_userID'])) {
-                header("Location: index.php?action=login");
-                exit;
-            }
-            $controller->oganizer_menu();
-            break;
         default:
             // Handle invalid action
             break;
@@ -105,6 +94,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         case 'login':
             $controller = new LoginController();
             $controller->login();
+        case 'event_insert':
+            $controller = new OganizerController($event_db);
+            $controller->event_insert();
             break;
         case 'register':
             $controller = new RegistrationController();

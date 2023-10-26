@@ -7,11 +7,18 @@ class WelcomeController
         require 'views/welcome.php';
         require 'views/footer.php';
     }
-
-    public function oganizer_menu()
+    public function event_list()
     {
         require 'views/header.php';
         require 'views/oganizer/menu.php';
+        require 'views/oganizer/event_list.php';
+        require 'views/footer.php';
+    }
+    public function event_regist()
+    {
+        require 'views/header.php';
+        require 'views/oganizer/menu.php';
+        require 'views/oganizer/event_regist.php';
         require 'views/footer.php';
     }
 }
