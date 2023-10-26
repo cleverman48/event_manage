@@ -51,7 +51,7 @@ $login_err = isset($_GET['login_err']) ? '無効なメールまたはパスワ�
     <!-- ============================================================== -->
     <div class="splash-container">
         <div class="card ">
-            <img class="logo-img mx-auto mt-3" src="./public/image/browser.png" alt="logo">
+            <a href="index.php" class="mx-auto mt-3" style="max-width: max-content;"><img class="logo-img " src="./public/image/browser.png" alt="logo"></a>
             <div class="card-header text-center flex-direction-column pt-2">
                 <h3>ログイン</h3>
                 <p>はじめてご利用の方は<a href="index.php?action=register" class="footer-link pb-1 text-success">新規登録</a></p>

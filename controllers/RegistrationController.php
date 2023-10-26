@@ -16,7 +16,7 @@ class RegistrationController
                 $user = new UserModel();
                 $result = $user->register( $lastName, $firstName, $email, $password );
                 if ( $result ){
-                    if( $result == 'exist_email' ){
+                    if( $result === 'exist_email' ){
                         header('Location: index.php?action=register&register_err=exist_email&lastName=' . $lastName. '&firstName=' . $firstName.  '&email=' . $email . '&password=' . $password);
                         exit;
                     }

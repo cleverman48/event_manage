@@ -7,7 +7,6 @@ class UserModel
     public function __construct()
     {
         global $db;
-        // データベースに接続する
         $this->db = $db;
         $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
@@ -19,67 +18,157 @@ class UserModel
 
             $tableName = 'users';
 
-            // Check if the table exists
-            $stmt = $this->db->query("SHOW TABLES LIKE '$tableName'");
-            $tableExists = $stmt->rowCount() > 0;
-
-            if (!$tableExists) {
-                $migration = new CreateUsersTable($this->db);
-                $migration->up();
-            }
-            // メールアドレスが既に存在するかチェックする
-            $stmt = $this->db->prepare('SELECT COUNT(*) FROM users WHERE email = ?');
-            $stmt->bindParam(1, $email);
-            $stmt->execute();
-            $count = $stmt->fetchColumn();
-        
-            if ($count > 0) {
-                return 'exist_email'; // メールアドレスが既に存在する場合はエラーを返す
+            if (!$this->tableExists($tableName)) {
+                $this->createUsersTable();
             }
 
-            // SQL文を準備する
-            $stmt = $this->db->prepare('INSERT INTO users (lastName, firstName, email, password) VALUES (?, ?, ?, ?)');
-            // パラメータをバインドする
-            $stmt->bindParam(1, $lastName);
-            $stmt->bindParam(2, $firstName);
-            $stmt->bindParam(3, $email);
-            $stmt->bindParam(4, $password);
-    
-            // ステートメントを実行する
-            $stmt->execute();
-    
-            // 挿入が成功したかチェックする
+            $uniqueId = $this->generateUniqueId(5);
+
+            while ($this->isUserIdExists($uniqueId)) {
+                $uniqueId = $this->generateUniqueId(5);
+            }
+
+            if ($this->isEmailExists($email)) {
+                return 'exist_email';
+            }
+
+            $stmt = $this->db->prepare('INSERT INTO users (userID, lastName, firstName, email, password) VALUES (?, ?, ?, ?, ?)');
+            $stmt->execute([$uniqueId, $lastName, $firstName, $email, $password]);
+
             if ($stmt->rowCount() > 0) {
+                $tableName = 'attenders';
+
+                if (!$this->tableExists($tableName)) {
+                    $this->createAttendersTable();
+                }
+
+                $stmt = $this->db->prepare('INSERT INTO attenders (userID) VALUES (?)');
+                $stmt->execute([$uniqueId]);
+
                 return true;
             } else {
                 return false;
             }
         } catch (PDOException $e) {
-            // 例外を処理するか、エラーをログに記録する
             error_log('ユーザーの挿入エラー: ' . $e->getMessage());
             return false;
         }
     }
 
-    public function authentication( $email, $password ){
+    public function authentication($email, $password)
+    {
         $stmt = $this->db->prepare("SELECT * FROM users WHERE email = ?");
         $stmt->execute([$email]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        // Verify the password
         if ($user && password_verify($password, $user['password'])) {
-            // Successful login
-            $_SESSION['userId'] = $user['id'];
+            $_SESSION['login_user'] = $user['id'];
+            $_SESSION['login_userID'] = $user['userID'];
             return true;
         }
 
-        // Invalid credentials
         return false;
-
     }
 
-    public function reset($email){
+    public function reset($email)
+    {
         return false;
+    }
+
+    public function updateAttender()
+    {
+        $userID = $_SESSION['login_userID'];
+        $fullName = $_POST['user_name'];
+        $nameParts = explode(' ', $fullName);
+        $lastname = $nameParts[0];
+        $firstname = $nameParts[1] ?? '';
+        $updated_at = date('Y-m-d H:i:s');
+
+        $stmt = $this->db->prepare('UPDATE users SET lastname = :lastname, firstname = :firstname, updated_at = :updated_at WHERE userID = :userID');
+        $stmt->bindParam(':lastname', $lastname);
+        $stmt->bindParam(':firstname', $firstname);
+        $stmt->bindParam(':updated_at', $updated_at);
+        $stmt->bindParam(':userID', $userID);
+        $stmt->execute();
+
+        if ($_FILES['avatar']['error'] == 0) {
+            $avatarFile = $_FILES['avatar'];
+            $targetDirectory = 'public/image/avatar/';
+            $originalFilename = basename($avatarFile['name']);
+            $extension = pathinfo($originalFilename, PATHINFO_EXTENSION);
+            $targetFilename = uniqid() . '_' . $userID . '.' . $extension;
+            $targetPath = $targetDirectory . $targetFilename;
+            
+            if (move_uploaded_file($avatarFile['tmp_name'], $targetPath)) {
+                $stmt = $this->db->prepare('UPDATE attenders SET avatar = :avatar, company = :company, gender = :gender, years = :years, area = :area, sector = :sector, employee_size = :employee_size, depart = :depart, position = :position, homepage = :homepage, sns = :sns, profile = :profile, updated_at = :updated_at WHERE userID = :userID');
+                $stmt->bindParam(':avatar', $targetPath);
+            } else {
+            }
+        } else {
+            $stmt = $this->db->prepare('UPDATE attenders SET company = :company, gender = :gender, years = :years, area = :area, sector = :sector, employee_size = :employee_size, depart = :depart, position = :position, homepage = :homepage, sns = :sns, profile = :profile, updated_at = :updated_at WHERE userID = :userID');
+        }
+        $stmt->bindParam(':company', $_POST['company']);
+        $stmt->bindParam(':gender', $_POST['gender']);
+        $stmt->bindParam(':years', $_POST['years']);
+        $stmt->bindParam(':area', $_POST['area']);
+        $stmt->bindParam(':sector', $_POST['sector']);
+        $stmt->bindParam(':employee_size', $_POST['employee_size']);
+        $stmt->bindParam(':depart', $_POST['depart']);
+        $stmt->bindParam(':position', $_POST['position']);
+        $stmt->bindParam(':homepage', $_POST['homepage']);
+        $stmt->bindParam(':sns', $_POST['sns']);
+        $stmt->bindParam(':profile', $_POST['profile']);
+        $stmt->bindParam(':updated_at', $updated_at);
+        $stmt->bindParam(':userID', $userID);
+        $stmt->execute();
+    }
+
+
+    private function tableExists($tableName)
+    {
+        $stmt = $this->db->query("SHOW TABLES LIKE '$tableName'");
+        return $stmt->rowCount() > 0;
+    }
+
+    private function createUsersTable()
+    {
+        $migration = new CreateUsersTable($this->db);
+        $migration->up();
+    }
+
+    private function createAttendersTable()
+    {
+        $migration = new CreateAttendersTable($this->db);
+        $migration->up();
+    }
+
+    private function isUserIdExists($userId)
+    {
+        $stmt = $this->db->prepare('SELECT COUNT(*) FROM users WHERE userID = ?');
+        $stmt->execute([$userId]);
+        $count = $stmt->fetchColumn();
+        return $count > 0;
+    }
+
+    private function isEmailExists($email)
+    {
+        $stmt = $this->db->prepare('SELECT COUNT(*) FROM users WHERE email = ?');
+        $stmt->execute([$email]);
+        $count = $stmt->fetchColumn();
+        return $count > 0;
+    }
+
+    private function generateUniqueId($length)
+    {
+        $characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
+        $uniqueId = '';
+
+        for ($i = 0; $i < $length; $i++) {
+            $randomIndex = mt_rand(0, strlen($characters) - 1);
+            $uniqueId .= $characters[$randomIndex];
+        }
+
+        return $uniqueId;
     }
 }
 

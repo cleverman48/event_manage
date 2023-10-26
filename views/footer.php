@@ -15,11 +15,20 @@
         </div>
     </div>
 </div>
-<script src="assets/vendor/jquery/jquery-3.3.1.min.js"></script>
 <script src="assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
 <script src="assets/vendor/slimscroll/jquery.slimscroll.js"></script>
 <script src="assets/libs/js/main-js.js"></script>
 <script src="assets/vendor/inputmask/js/jquery.inputmask.bundle.js"></script>
-
+<script>
+    $(window).ready(function() {
+        $("input").on("keypress", function (event) {
+            var keyPressed = event.keyCode || event.which;
+            if (keyPressed === 13) {
+                event.preventDefault();
+                return false;
+            }
+        });
+    });
+</script>
 </body>
 </html>

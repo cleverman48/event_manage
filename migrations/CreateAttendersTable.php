@@ -1,6 +1,6 @@
 <?php
 
-class CreateUsersTable
+class CreateAttendersTable
 {
     private $db;
     public function __construct($db){
@@ -11,14 +11,21 @@ class CreateUsersTable
         // Define the database schema changes to be applied when migrating up
         try {
             // Define the database schema changes to be applied when migrating up
-            $sql = "CREATE TABLE users (
+            $sql = "CREATE TABLE attenders (
                 id INT(11) AUTO_INCREMENT PRIMARY KEY,
                 userID VARCHAR(5) UNIQUE,
-                lastname VARCHAR(255),
-                firstname VARCHAR(255),
-                email VARCHAR(255),
-                password VARCHAR(255),
-                role INT(11) DEFAULT 0,
+                avatar VARCHAR(255) DEFAULT 'public/image/upload/user.png',
+                company VARCHAR(255),
+                gender VARCHAR(255),
+                years VARCHAR(255),
+                area VARCHAR(255),
+                sector VARCHAR(255),
+                employee_size VARCHAR(255),
+                depart VARCHAR(255),
+                position VARCHAR(255),
+                homepage VARCHAR(255),
+                sns VARCHAR(255),
+                profile TEXT,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )";
