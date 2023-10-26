@@ -6,5 +6,5 @@ $dbUser = 'root';
 $dbPass = '';
 
 // Establish database connection
-$db = new PDO("mysql:host=$dbHost;dbname=$dbName;charset=utf8", $dbUser, $dbPass);
+ $event_db = new PDO("mysql:host=$dbHost;dbname=$dbName;charset=utf8", $dbUser, $dbPass);
 ?>

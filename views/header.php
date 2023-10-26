@@ -11,8 +11,6 @@
 <link href="assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
 <link rel="stylesheet" href="assets/libs/css/style.css">
 <link rel="stylesheet" href="assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
-<link rel="stylesheet" href="assets/vendor/datepicker/tempusdominus-bootstrap-4.css" />
-<link rel="stylesheet" href="assets/vendor/inputmask/css/inputmask.css" />
 <style>
     .my-h-wrapper {
         position: fixed;
@@ -52,7 +50,7 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">                   
                             <a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i>マイページ</a>
-                            <a class="dropdown-item" href="index.php?action=oganizer_menu"><i class="fas fa-users mr-2"></i>主催者メニュー</a>
+                            <a class="dropdown-item" href="index.php?action=event_list"><i class="fas fa-users mr-2"></i>主催者メニュー</a>
                             <a class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>通知設定</a>
                             <a class="dropdown-item" href="#"><i class="fas fa-power-off mr-2"></i>ログアウト</a>
                         </div>

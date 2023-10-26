@@ -1,35 +1,6 @@
-.top-board{
-    display: flex;
-    justify-content:right;
-    align-items: center;
-    width: 200px;
+.page-wrape{
+    width: 264px;
+    height: 100%;
     position: fixed;
-    left: 5px;
-    top:70px;
-}
-.menu-board{
-    width: 100%;
-    height: 100vh;
-    margin: auto;
-    background-color: rgb(75 101 119);
-    animation: appear 0.5s ease-in-out forwards;
-}
-@keyframes appear {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-}
-.menu-row{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-.menu-row a{
-    width:150px;
+    top:60px;
 }

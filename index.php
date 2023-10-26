@@ -1,17 +1,21 @@
 <?php
 session_start();
 
-// Include necessary files
-require_once 'config.php';
-require_once 'functions.php';
-
-spl_autoload_register(function ($className) {
-    $className = str_replace('\\', '/', $className);
-    require_once __DIR__ . '/controllers/' . $className . '.php';
-    // require_once __DIR__ . '/controllers/attender/' . $className . '.php';
-    // require_once __DIR__ . '/controllers/manager/' . $className . '.php';
-    // require_once __DIR__ . '/controllers/organizer/' . $className . '.php';
-});
+require_once 'library/functions.php';
+require_once 'library/config.php';
+function requireFiles($directory) {
+    $files = glob($directory . '/*.php'); // Get PHP files in the current directory
+    foreach ($files as $file) {
+        require_once $file;
+    }
+    $subdirectories = glob($directory . '/*', GLOB_ONLYDIR); // Get subdirectories
+    foreach ($subdirectories as $subdirectory) {
+        requireFiles($subdirectory); // Recursively require files in subdirectories
+    }
+    
+}
+$directory = __DIR__ . '/controllers'; // Specify the directory path
+requireFiles($directory);
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     // Handle routing
@@ -21,9 +25,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $controller = new WelcomeController();
             $controller->index();
             break;
-        case 'oganizer_menu':
+        case 'event_list':
             $controller = new WelcomeController();
-            $controller->oganizer_menu();
+            $controller->event_list();
+            break;
+        case 'event_regist':
+            $controller = new WelcomeController();
+            $controller->event_regist();
             break;
         case 'login':
             $controller = new LoginController();
@@ -41,9 +49,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     // Handle routing
     $action = $_POST['action'] ?? 'login';
     switch ($action) {
-        case 'login':
-            // Handle POST request for login
-            // Process login form submission
+        case 'event_insert':
+            $controller = new OganizerController($event_db);
+            $controller->event_insert();
             break;
         case 'register':
             // Handle POST request for registration
