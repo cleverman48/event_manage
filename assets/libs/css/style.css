@@ -2064,7 +2064,8 @@ Pageheader
     color: #71748d;
     background-color: #fff;
     width: 100%;
-    /*position: absolute; bottom: 0;*/
+    position: fixed; 
+    bottom: 0;
 }
 
 .footer-links {}
