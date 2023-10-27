@@ -35,11 +35,12 @@ function my_avatar()
 }
 function url2link($text)
 {
-    $pattern = '/(https:\/\/\S+)/';
+    $pattern = '/(https?:\/\/\S+)/';
     $replacement = '<a href="$1">$1</a>';
     
     $linkedText = preg_replace($pattern, $replacement, $text);
     
     return $linkedText;
 }
+
 ?>
