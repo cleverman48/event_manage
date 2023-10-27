@@ -1,6 +1,6 @@
 <div class="dashboard-wrapper mx-auto mt-2">
     <?php
-    if( $_POST == array() ){
+    if( !isset($_POST['avatar']) ){
         $attender = new AttendController();
         $user = $attender->get($_SESSION['login_userID']);
     }else{

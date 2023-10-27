@@ -2,12 +2,10 @@
     <div class="container-fluid dashboard-content col-lg-10 col-md-12 mx-auto">
         <div class="row"></div>
         <?php
-        if( $_POST == array() ){
+        if( !isset($_POST['avatar']) ){
             $attender = new AttendController();
             $user = $attender->get($_SESSION['login_userID']);
-            print_r('okdfdfsdfsd');
         }else{
-            print_r('ok');
             $user = $_POST;
         }
         ?>
