@@ -19,7 +19,7 @@ function hashPassword($password)
 function my_avatar()
 {
     global $event_db;
-    
+
     $userID = isset($_SESSION['login_userID']) ? $_SESSION['login_userID'] : '';
     if ($userID != '') {
         $sql = "SELECT avatar FROM attenders WHERE userID = :userID";
@@ -37,10 +37,20 @@ function url2link($text)
 {
     $pattern = '/(https?:\/\/\S+)/';
     $replacement = '<a href="$1">$1</a>';
-    
+
     $linkedText = preg_replace($pattern, $replacement, $text);
-    
+
     return $linkedText;
 }
+function uploadImage($file)
+{
+    $targetDirectory = 'public/image/avatar/';
+    $originalFilename = basename($file['name']);
+    $extension = pathinfo($originalFilename, PATHINFO_EXTENSION);
+    $targetFilename = uniqid() . '.' . $extension;
+    $targetPath = $targetDirectory . $targetFilename;
+    move_uploaded_file($file['tmp_name'], $targetPath);
 
+    return $targetPath;
+}
 ?>

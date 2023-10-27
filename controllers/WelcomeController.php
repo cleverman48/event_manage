@@ -4,7 +4,7 @@ class WelcomeController
 {
     public function index()
     {
-        require 'views/header.php';
+        require 'views/attender/header.php';
         require 'views/welcome.php';
         require 'views/footer.php';
     }

@@ -9,18 +9,30 @@ class AttendController
     }
     public function attend_event()
     {
-        require 'views/header.php';
+        require 'views/attender/header.php';
         require 'views/attender/attend_event.php';
         require 'views/footer.php';
     }
     public function attender_list()
     {
-        require 'views/header.php';
+        require 'views/attender/header.php';
         require 'views/attender/attender_list.php';
         require 'views/footer.php';
     }
     public function my_page()
-    {
+    {  
+        if( !isset($_POST['data']) ){
+            $user = $this->get($_SESSION['login_userID']);
+            $username = $user['lastname'] . ' ' . $user['firstname'];
+            $returnPage = 'false';
+        }else{
+            $user = json_decode($_POST['data'], true);
+            $username = $user['user_name'];
+            $avatar = $_POST['avatar'];
+            $returnPage = 'true';
+        }
+        $files = (isset($_POST['files'])) ? $_POST['files'] :'';
+        
         $info_set = array();
         $info_set['gender'] = array('非回答', '男性', '女性');
         $info_set['years'] = array('非回答', '20代', '30代', '40代', '50代', '60以上', '10代');
@@ -31,13 +43,28 @@ class AttendController
         $info_set['position'] = array('非回答', '経営者', '役員（取締役）', '事業部長・工場長', '部長・課長', '係長・主任', '一般社員・職員', '契約・派遣・委託');
         $default_avatar = 'public/image/upload/user.png';
         
-        require 'views/header.php';
+        require 'views/attender/header.php';
         require 'views/attender/my_page.php';
         require 'views/footer.php';
     }
     public function previewProfile()
     {
-        require 'views/header.php';
+        if (!isset($_POST['gender'])) {
+            $user = $this->get($_SESSION['login_userID']);
+            $username = $user['lastname'] . ' ' . $user['firstname'];
+            $avatar = $user['avatar'];
+            $returnPage = false;
+        } else {
+            $user = $_POST;
+            $username = $user['user_name'];
+            if( $_FILES['avatar']['name'] != '') {
+                $avatar = uploadImage($_FILES['avatar']);
+            }else{
+                $avatar = $_POST['avatar'];
+            }
+            $returnPage = true;
+        }
+        require 'views/attender/header.php';
         require 'views/attender/preview.php';
         require 'views/footer.php';
     }

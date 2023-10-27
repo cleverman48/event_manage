@@ -1,35 +1,29 @@
 <div class="dashboard-wrapper mx-auto mt-2">
     <div class="container-fluid dashboard-content col-lg-10 col-md-12 mx-auto">
         <div class="row"></div>
-        <?php
-        if( !isset($_POST['avatar']) ){
-            $attender = new AttendController();
-            $user = $attender->get($_SESSION['login_userID']);
-        }else{
-            $user = $_POST;
-        }
-        ?>
+        <input type="hidden" id="returnPage" value="<?php echo $returnPage ;?>">
         <div class="card main-center px-3 py-3">
             <div class="card-header px-0 py-0">
                 <h5 class="mb-0">マイページ</h5>
             </div>
             <div class="card-body">
                 <form action="index.php" method="post" class="form-id" enctype="multipart/form-data">
-                    <input type="hidden" name="action" value="attender_update">
+                    <input type="hidden" name="action" id="action" value="">
                     <div class="">
                         <div class="form-group row">
                             <label for="userID" class="col-12 col-sm-3 col-form-label text-sm-right">ID</label>
                             <div class="col-12 col-sm-8 col-lg-6">
                                 <input type="text" name="userID" class="form-control" disabled
-                                    value="<?php echo $user['userID']; ?>">
+                                    value="<?php echo $_SESSION['login_userID']; ?>">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="avatar" class="col-12 col-sm-3 col-form-label text-sm-right">プロフィール画像</label>
                             <div class="col-12 col-sm-8 col-lg-6">
                                 <input type="file" name="avatar" id="avatarInput" class="form-control-file possibleChange" disabled accept="image/*">
+                                <input type="hidden" name="avatar" value="<?php echo  (isset($avatar)) ? $avatar : $user['avatar'] ;?>">
                                 <div style="max-width: max-content;" class="mx-auto mt-4">
-                                    <img id="avatarPreview" src="<?php echo $user['avatar']?>" alt="Avatar Preview" style="width: 150px; height: 150px; object-fit: cover;">
+                                    <img id="avatarPreview" src="<?php echo (isset($avatar)) ? $avatar : $user['avatar']?>" alt="Avatar Preview" style="width: 150px; height: 150px; object-fit: cover;">
                                 </div>
                             </div>
                         </div>
@@ -37,7 +31,7 @@
                             <label for="user_name" class="col-12 col-sm-3 col-form-label text-sm-right">姓　名</label>
                             <div class="col-12 col-sm-8 col-lg-6">
                                 <input type="text" name="user_name" class="form-control possibleChange" disabled
-                                    value="<?php echo $user['lastname'] . ' ' . $user['firstname']; ?>">
+                                    value="<?php echo $username; ?>">
                             </div>
                         </div>
                         <div class="form-group row">

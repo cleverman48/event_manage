@@ -34,7 +34,6 @@ class AttenderModel
             exit();
         }
     }
-
     public function register($uniqueId)
     {
         try {
@@ -82,20 +81,12 @@ class AttenderModel
 
         if ($_FILES['avatar']['error'] == 0) {
             $avatarFile = $_FILES['avatar'];
-            $targetDirectory = 'public/image/avatar/';
-            $originalFilename = basename($avatarFile['name']);
-            $extension = pathinfo($originalFilename, PATHINFO_EXTENSION);
-            $targetFilename = uniqid() . '_' . $userID . '.' . $extension;
-            $targetPath = $targetDirectory . $targetFilename;
-
-            if (move_uploaded_file($avatarFile['tmp_name'], $targetPath)) {
-                $stmt = $this->db->prepare('UPDATE attenders SET avatar = :avatar, company = :company, gender = :gender, years = :years, area = :area, sector = :sector, employee_size = :employee_size, depart = :depart, position = :position, homepage = :homepage, sns = :sns, profile = :profile, updated_at = :updated_at WHERE userID = :userID');
-                $stmt->bindParam(':avatar', $targetPath);
-            } else {
-            }
+            $targetPath = uploadImage($avatarFile);
         } else {
-            $stmt = $this->db->prepare('UPDATE attenders SET company = :company, gender = :gender, years = :years, area = :area, sector = :sector, employee_size = :employee_size, depart = :depart, position = :position, homepage = :homepage, sns = :sns, profile = :profile, updated_at = :updated_at WHERE userID = :userID');
+            $targetPath = $_POST['avatar'];
         }
+        $stmt = $this->db->prepare('UPDATE attenders SET avatar = :avatar, company = :company, gender = :gender, years = :years, area = :area, sector = :sector, employee_size = :employee_size, depart = :depart, position = :position, homepage = :homepage, sns = :sns, profile = :profile, updated_at = :updated_at WHERE userID = :userID');
+        $stmt->bindParam(':avatar', $targetPath);
         $stmt->bindParam(':company', $_POST['company']);
         $stmt->bindParam(':gender', $_POST['gender']);
         $stmt->bindParam(':years', $_POST['years']);
