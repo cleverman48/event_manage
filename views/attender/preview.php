@@ -1,7 +1,11 @@
 <div class="dashboard-wrapper mx-auto mt-2">
     <?php
-    $attender = new AttendController();
-    $user = $attender->get($_SESSION['login_userID']);
+    if( $_POST == array() ){
+        $attender = new AttendController();
+        $user = $attender->get($_SESSION['login_userID']);
+    }else{
+        $user = $_POST;
+    }
     ?>
     <section style="background-color: #eee;">
         <div class="container py-5">
