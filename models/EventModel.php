@@ -77,7 +77,7 @@ class EventModel {
     public function getEventById($eventId) {
         // Implement your logic to fetch a specific event from the database or any other data source
         // Example code using PDO:
-        $query = "SELECT * FROM events WHERE id = :eventId";
+        $query = "SELECT * FROM events WHERE event_id = :eventId";
         $stmt = $this->db->prepare($query);
         $stmt->bindParam(":eventId", $eventId);
         $stmt->execute();
