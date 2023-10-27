@@ -22,11 +22,29 @@ requireFiles($directory);
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     // Handle routing
     $action = $_GET['action'] ?? 'welcome';
+    if($action =='welcome')
+    {
+        $controller = new WelcomeController();
+        $controller->index();
+        return;
+    }
+    if($action == 'login')
+    {
+        $controller = new LoginController();
+        $controller->login();
+        return;
+    }
+    if($action == 'register')
+    {
+        $controller = new RegistrationController();
+        $controller->register();
+        return;
+    }
+    if (!isset($_SESSION['login_userID'])) {
+        header("Location: index.php?action=login");
+        exit;
+    }
     switch ($action) {
-        case 'welcome':
-            $controller = new WelcomeController();
-            $controller->index();
-            break;
         case 'event_list':
             $controller = new WelcomeController();
             $controller->event_list();
@@ -35,52 +53,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $controller = new WelcomeController();
             $controller->event_regist();
             break;
-        case 'login':
-            $controller = new LoginController();
-            $controller->login();
-            break;
+        case 'event_detail':
+            $controller = new WelcomeController();
+            $controller->event_detail();
+            break;       
         case 'logout':
             $controller = new LoginController();
             $controller->logout();
-            break;
-        case 'register':
-            $controller = new RegistrationController();
-            $controller->register();
-            break;
+            break;        
         case 'reset':
             $controller = new LoginController();
             $controller->reset();
             break;
         case 'attend_event':
             $controller = new AttendController();
-            if (!isset($_SESSION['login_userID'])) {
-                header("Location: index.php?action=login");
-                exit;
-            }
             $controller->attend_event();
             break;
         case 'attender_list':
-            $controller = new AttendController();
-            if (!isset($_SESSION['login_userID'])) {
-                header("Location: index.php?action=login");
-                exit;
-            }
+            $controller = new AttendController();           
             $controller->attender_list();
             break;
         case 'my_page':
             $controller = new AttendController();
-            if (!isset($_SESSION['login_userID'])) {
-                header("Location: index.php?action=login");
-                exit;
-            }
             $controller->my_page();
             break;
         case 'previewProfile':
             $controller = new AttendController();
-            if (!isset($_SESSION['login_userID'])) {
-                header("Location: index.php?action=login");
-                exit;
-            }
             $controller->previewProfile();
             break;
         default:
@@ -89,7 +87,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     }
 } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Handle routing
-    $action = $_POST['action'] ?? 'login';
+    $action = $_POST['action'] ?? 'login';   
+    if($action == 'login')
+    {
+        $controller = new LoginController();
+        $controller->login();
+        return;
+    }
+    if($action == 'register')
+    {
+        $controller = new RegistrationController();
+        $controller->register();
+        return;
+    }
+    if (!isset($_SESSION['login_userID'])) {
+        header("Location: index.php?action=login");
+        exit;
+    }
     switch ($action) {
         case 'login':
             $controller = new LoginController();
@@ -97,6 +111,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         case 'event_insert':
             $controller = new OganizerController();
             $controller->event_insert();
+            break;
+        case 'get_eventlist':
+            $controller = new OganizerController();
+            $controller->get_eventlist();
             break;
         case 'register':
             $controller = new RegistrationController();

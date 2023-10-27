@@ -11,6 +11,8 @@ class EventModel {
         // Check if the "events" table exists, if not, create it
         $createTableQuery = "CREATE TABLE IF NOT EXISTS events (
             id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+            event_id VARCHAR(255) NOT NULL,
+            event_state VARCHAR(255) NOT NULL,
             event_oganizer VARCHAR(255) NOT NULL,
             event_name VARCHAR(255) NOT NULL,
             event_date DATE NOT NULL,
@@ -48,9 +50,11 @@ class EventModel {
     public function createEvent($eventData) {
         // Implement your logic to create a new event in the database or any other data source
         // Example code using PDO:
-        $query = "INSERT INTO events (event_oganizer,event_name, event_date, event_time,event_venue,event_address,event_url,participation_fee,num_participants,matching_restrictions,tags,image_path,content)".
-        " VALUES (:event_oganizer,:event_name, :event_date, :event_time,:event_venue,:event_address,:event_url,:participation_fee,:num_participants,:matching_restrictions,:tags,:image_path,:content)";
+        $query = "INSERT INTO events (event_id,event_state,event_oganizer,event_name, event_date, event_time,event_venue,event_address,event_url,participation_fee,num_participants,matching_restrictions,tags,image_path,content)".
+        " VALUES (:event_id,:event_state,:event_oganizer,:event_name, :event_date, :event_time,:event_venue,:event_address,:event_url,:participation_fee,:num_participants,:matching_restrictions,:tags,:image_path,:content)";
         $stmt = $this->db->prepare($query);
+        $stmt->bindParam(":event_id", $eventData['event_id']);
+        $stmt->bindParam(":event_state", $eventData['event_state']);
         $stmt->bindParam(":event_oganizer", $eventData['event_oganizer']);
         $stmt->bindParam(":event_name", $eventData['event_name']);
         $stmt->bindParam(":event_date", $eventData['event_date']);

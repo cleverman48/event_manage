@@ -21,5 +21,12 @@ class WelcomeController
         require 'views/oganizer/event_regist.php';
         require 'views/footer.php';
     }
+    public function event_detail()
+    {
+        require 'views/header.php';
+        require 'views/oganizer/menu.php';
+        require 'views/oganizer/event_detail.php';
+        require 'views/footer.php';
+    }
 }
 ?>
