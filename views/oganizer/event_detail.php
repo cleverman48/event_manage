@@ -3,17 +3,17 @@
     <div class="container">
         <div class="card p-5 d-flex justify-content-center  align-items-center w-60"
         style="background-color:#d3e4ed;">
-            <form id="eventForm " >
+            <form id="eventForm" >
                 <div class="align-labels">
                     <label for="eventID" class="form-label">イベントID:</label>
                     <div class="form-group">
-                        <div id="eventID"><?php echo $event['event_id'];  ?></div>
+                        <input id="eventID" type="text" value="<?php echo $event['event_id'];  ?>" class="form-control" disabled>
                     </div>                    
                 </div>
                 <div class="align-labels">
                     <label for="eventDateTime" class="form-label">開催日時:</label>
                     <div class="form-group">
-                        <input type="datetime-local" value="<?php echo $event['event_date'].$event['event_time'];  ?>" class="form-control" id="eventDateTime" required>
+                        <input type="datetime-local" value="<?php echo $event['event_date']."T".$event['event_time'];  ?>" class="form-control" id="eventDateTime" required>
                     </div>
                 </div>
 
@@ -84,6 +84,9 @@
                         <input type="text" class="form-control" id="tag">
                     </div>
                 </div>
+                <div class="align-labels d-flex justify-content-end  align-items-center m-2">
+                    <img  id="image-input"  src="<?php echo $event['image_path'];?>" alt="<?php echo $event['event_name'];?>" style="width:40%;">
+                </div>
                 <div class="align-labels">
                     <label for="image" class="form-label">画像挿入:</label>
                     <div class="form-group">
@@ -108,7 +111,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="d-flex justify-content-end  align-items-center">
+                <div class="align-labels d-flex justify-content-end  align-items-center">
+                    <p id="copy-feedback" style="display: none;">コピーしました！</p>
+                </div>
+                <div class="d-flex justify-content-end  align-items-center" style = "margin-bottom: 50px;">
                     <button  class="btn btn-secondary m-3">参加者限定ペイジ</button>
                     <button type="submit" class="btn btn-primary m-3">変更</button>
                     <button  class="btn btn-dark m-3" onclick="go_eventlist()">閉じる</button>

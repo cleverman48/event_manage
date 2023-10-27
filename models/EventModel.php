@@ -86,18 +86,52 @@ class EventModel {
     }
 
     // Method to update an existing event
-    public function updateEvent($eventId, $eventData) {
+    public function updateEvent($eventData) {
         // Implement your logic to update an event in the database or any other data source
         // Example code using PDO:
-        $query = "UPDATE events SET title = :title, description = :description, date = :date WHERE id = :eventId";
+        $query = "UPDATE events SET ". 
+            "event_oganizer = :event_oganizer, ".
+            "event_name = :event_name, ".
+            "event_date = :event_date, ".
+            "event_time = :event_time, ".
+            "event_venue = :event_venue, ".
+            "event_address = :event_address, ".
+            "event_url = :event_url, ".
+            "participation_fee = :participation_fee, ".
+            "num_participants = :num_participants, ".
+            "matching_restrictions = :matching_restrictions, ".
+            "tags = :tags, ";
+        if($eventData['image_path'] != "") {
+            $query .= "image_path = :image_path, ";
+        }
+        $query .= "content = :content WHERE id = :eventId"; 
+       
         $stmt = $this->db->prepare($query);
-        $stmt->bindParam(":title", $eventData['title']);
-        $stmt->bindParam(":description", $eventData['description']);
-        $stmt->bindParam(":date", $eventData['date']);
-        $stmt->bindParam(":eventId", $eventId);
-        $stmt->execute();
-        return true;
+        $stmt->bindParam(":event_oganizer", $eventData['event_oganizer']);
+        $stmt->bindParam(":event_name", $eventData['event_name']);
+        $stmt->bindParam(":event_date", $eventData['event_date']);
+        $stmt->bindParam(":event_time", $eventData['event_time']);
+        $stmt->bindParam(":event_venue", $eventData['event_venue']);
+        $stmt->bindParam(":event_address", $eventData['event_address']);
+        $stmt->bindParam(":event_url", $eventData['event_url']);
+        $stmt->bindParam(":participation_fee", $eventData['participation_fee']);
+        $stmt->bindParam(":num_participants", $eventData['num_participants']);
+        $stmt->bindParam(":matching_restrictions", $eventData['matching_restrictions']);
+        $stmt->bindParam(":tags", $eventData['tags']);
+        if($eventData['image_path'] != "") {
+            $stmt->bindParam(":image_path", $eventData['image_path']);
+        }
+        $stmt->bindParam(":content", $eventData['content']);
+        $stmt->bindParam(":eventId", $eventData['event_id']);
+        try {
+            $stmt->execute();
+            return true;
+        } catch (PDOException $e) {
+            echo "Update failed: " . $e->getMessage();
+            return false;
+        }
     }
+    
 
     // Method to delete an event
     public function deleteEvent($eventId) {

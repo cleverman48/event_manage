@@ -102,6 +102,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $controller = new OganizerController();
             $controller->event_insert();
             break;
+        case 'event_update':
+            $controller = new OganizerController();
+            $controller->event_update();
+            break;
         case 'get_eventlist':
             $controller = new OganizerController();
             $controller->get_eventlist();

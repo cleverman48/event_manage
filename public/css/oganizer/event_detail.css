@@ -8,6 +8,7 @@
     padding: 20px;
     overflow-y: scroll;
 }
+
 .align-labels {
     display: flex;
     align-items: flex-start;
@@ -44,6 +45,6 @@
     font-size: 15px;
     border-radius: 10px;
     color: white;
-    background-color: rgb(49, 49, 249);
+    background-color: rgb(86 114 241);
     width: 100%;
 }
