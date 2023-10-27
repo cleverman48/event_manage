@@ -1,8 +1,10 @@
 <?php
 session_start();
 
+// Include necessary files
 require_once 'library/functions.php';
 require_once 'library/config.php';
+
 function requireFiles($directory) {
     $files = glob($directory . '/*.php'); // Get PHP files in the current directory
     foreach ($files as $file) {
@@ -37,9 +39,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $controller = new LoginController();
             $controller->login();
             break;
+        case 'logout':
+            $controller = new LoginController();
+            $controller->logout();
+            break;
         case 'register':
             $controller = new RegistrationController();
             $controller->register();
+            break;
+        case 'reset':
+            $controller = new LoginController();
+            $controller->reset();
+            break;
+        case 'attend_event':
+            $controller = new AttendController();
+            if (!isset($_SESSION['login_userID'])) {
+                header("Location: index.php?action=login");
+                exit;
+            }
+            $controller->attend_event();
+            break;
+        case 'attender_list':
+            $controller = new AttendController();
+            if (!isset($_SESSION['login_userID'])) {
+                header("Location: index.php?action=login");
+                exit;
+            }
+            $controller->attender_list();
+            break;
+        case 'my_page':
+            $controller = new AttendController();
+            if (!isset($_SESSION['login_userID'])) {
+                header("Location: index.php?action=login");
+                exit;
+            }
+            $controller->my_page();
+            break;
+        case 'previewProfile':
+            $controller = new AttendController();
+            if (!isset($_SESSION['login_userID'])) {
+                header("Location: index.php?action=login");
+                exit;
+            }
+            $controller->previewProfile();
             break;
         default:
             // Handle invalid action
@@ -49,13 +91,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     // Handle routing
     $action = $_POST['action'] ?? 'login';
     switch ($action) {
+        case 'login':
+            $controller = new LoginController();
+            $controller->login();
         case 'event_insert':
             $controller = new OganizerController($event_db);
             $controller->event_insert();
             break;
         case 'register':
-            // Handle POST request for registration
-            // Process registration form submission
+            $controller = new RegistrationController();
+            $controller->register();
+            break;
+        case 'attender_update':
+            $controller = new AttendController();
+            $controller->attender_update();
+            header("Location: index.php?action=my_page");
             break;
         default:
             // Handle invalid POST request
