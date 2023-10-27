@@ -1,22 +1,4 @@
-const data = [
-  { no: 1, event_id: "John Doe", start_time: 25,event_name:"ddd",attended_num:10,attenders:20,state:"finished",clicks:30,favorites:20 },
-  { no: 1, event_id: "ddd Doe", start_time: 25,event_name:"ddd",attended_num:10,attenders:20,state:"finished",clicks:30,favorites:20 },
-  { no: 1, event_id: "eee Doe", start_time: 25,event_name:"ddd",attended_num:10,attenders:20,state:"finished",clicks:30,favorites:20 },
-  { no: 1, event_id: "John Doe", start_time: 25,event_name:"ddd",attended_num:10,attenders:20,state:"finished",clicks:30,favorites:20 },
-  { no: 1, event_id: "John Doe", start_time: 25,event_name:"ddd",attended_num:10,attenders:20,state:"finished",clicks:30,favorites:20 },
-  { no: 1, event_id: "John Doe", start_time: 25,event_name:"ddd",attended_num:10,attenders:20,state:"finished",clicks:30,favorites:20 },
-  { no: 1, event_id: "John Doe", start_time: 25,event_name:"ddd",attended_num:10,attenders:20,state:"finished",clicks:30,favorites:20 },
-  { no: 1, event_id: "John Doe", start_time: 25,event_name:"ddd",attended_num:10,attenders:20,state:"finished",clicks:30,favorites:20 },
-  { no: 1, event_id: "John Doe", start_time: 25,event_name:"ddd",attended_num:10,attenders:20,state:"finished",clicks:30,favorites:20 },
-  { no: 1, event_id: "John Doe", start_time: 25,event_name:"ddd",attended_num:10,attenders:20,state:"finished",clicks:30,favorites:20 },
-  { no: 1, event_id: "John Doe", start_time: 25,event_name:"ddd",attended_num:10,attenders:20,state:"finished",clicks:30,favorites:20 },
-  { no: 1, event_id: "John Doe", start_time: 25,event_name:"ddd",attended_num:10,attenders:20,state:"finished",clicks:30,favorites:20 },
-  { no: 1, event_id: "John Doe", start_time: 25,event_name:"ddd",attended_num:10,attenders:20,state:"finished",clicks:30,favorites:20 },
-  { no: 1, event_id: "John Doe", start_time: 25,event_name:"ddd",attended_num:10,attenders:20,state:"finished",clicks:30,favorites:20 },
-  { no: 1, event_id: "John Doe", start_time: 25,event_name:"ddd",attended_num:10,attenders:20,state:"finished",clicks:30,favorites:20 },
-  { no: 1, event_id: "John Doe", start_time: 25,event_name:"ddd",attended_num:10,attenders:20,state:"finished",clicks:30,favorites:20 }
-];
-
+var data = [];
 const tableContainer = document.getElementById("table-container");
 const paginationContainer = document.getElementById("pagination-container");
 const prevBtn = document.getElementById("prev-btn");
@@ -35,7 +17,7 @@ function renderTable() {
   tableHTML += `<tr><th>番号</th><th>イベントID</th><th>開催日時</th><th>イベント名</th><th>参加数</th><th>人数</th><th>状況</th>
   <th>クリック数</th><th>お気に入り数</th><th>詳細</th><th>参加者一覧</th></tr>`;
   currentData.forEach((item) => {
-    tableHTML += `<tr><td>${item.no}</td><td>${item.event_id}</td><td>${item.start_time}</td><td>${item.event_name}</td><td>${item.attended_num}</td><td>${item.attenders}</td><td>${item.state}</td>
+    tableHTML += `<tr><td>${item.no}</td><td>${item.event_id}</td><td>${item.event_date} ${item.event_time}</td><td>${item.event_name}</td><td>${item.num_attend}</td><td>${item.num_participants}</td><td>${item.event_state}</td>
     <td>${item.clicks}</td><td>${item.favorites}</td>
     <td><button style='background-color: #c9ad3d;' onclick="event_detail('${item.event_id}')">詳細</button></td>
     <td><button style='background-color: #c9ad3d;' onclick="attenders('${item.event_id}')">参加者一覧</button></td>
@@ -124,17 +106,13 @@ nextBtn.addEventListener("click", () => {
   updatePagination();
 });
 
-// Initial rendering
-renderTable();
-updatePagination();
-
 var currentDate = new Date();
 var formattedDate = currentDate.toISOString().slice(0, 10);
 document.getElementById("dateInput").value = formattedDate;
 
 function event_detail(event_id)
 {
-    alert(event_id);
+  window.location.href = "index.php?action=event_detail&event_id=" + event_id;
 }
 function attenders(event_id)
 {
@@ -145,3 +123,35 @@ function regist_event()
 {
     window.location.href = "index.php?action=event_regist";
 }
+
+$(document).ready(function() {
+  // Your code here
+  $.ajax({
+    url: 'index.php',
+    type: 'POST',
+    data: {
+      action: "get_eventlist",
+    },
+    success: function(response) {
+        let res = JSON.parse(response);
+        if(res.state == "success")
+        {
+          let no=1;
+          res.data.forEach((item) => {
+            item.no = no;
+            item.num_attend = no;
+            item.clicks = no;
+            item.favorites = no;
+            data.push(item);
+            no++;
+          });
+          renderTable();
+          updatePagination();
+        }
+    },
+    error: function(xhr, status, error) {
+      // Handle error
+      console.log('Error:', error);
+    }
+  });
+});

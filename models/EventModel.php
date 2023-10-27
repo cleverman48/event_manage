@@ -5,11 +5,14 @@ class EventModel {
     private $db; // Database connection or ORM instance
 
     // Constructor
-    public function __construct($c_db) {
-        $this->db = $c_db;
+    public function __construct() {
+        global $event_db;
+        $this->db = $event_db;
         // Check if the "events" table exists, if not, create it
         $createTableQuery = "CREATE TABLE IF NOT EXISTS events (
             id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+            event_id VARCHAR(255) NOT NULL,
+            event_state VARCHAR(255) NOT NULL,
             event_oganizer VARCHAR(255) NOT NULL,
             event_name VARCHAR(255) NOT NULL,
             event_date DATE NOT NULL,
@@ -47,9 +50,11 @@ class EventModel {
     public function createEvent($eventData) {
         // Implement your logic to create a new event in the database or any other data source
         // Example code using PDO:
-        $query = "INSERT INTO events (event_oganizer,event_name, event_date, event_time,event_venue,event_address,event_url,participation_fee,num_participants,matching_restrictions,tags,image_path,content)".
-        " VALUES (:event_oganizer,:event_name, :event_date, :event_time,:event_venue,:event_address,:event_url,:participation_fee,:num_participants,:matching_restrictions,:tags,:image_path,:content)";
+        $query = "INSERT INTO events (event_id,event_state,event_oganizer,event_name, event_date, event_time,event_venue,event_address,event_url,participation_fee,num_participants,matching_restrictions,tags,image_path,content)".
+        " VALUES (:event_id,:event_state,:event_oganizer,:event_name, :event_date, :event_time,:event_venue,:event_address,:event_url,:participation_fee,:num_participants,:matching_restrictions,:tags,:image_path,:content)";
         $stmt = $this->db->prepare($query);
+        $stmt->bindParam(":event_id", $eventData['event_id']);
+        $stmt->bindParam(":event_state", $eventData['event_state']);
         $stmt->bindParam(":event_oganizer", $eventData['event_oganizer']);
         $stmt->bindParam(":event_name", $eventData['event_name']);
         $stmt->bindParam(":event_date", $eventData['event_date']);
@@ -72,7 +77,7 @@ class EventModel {
     public function getEventById($eventId) {
         // Implement your logic to fetch a specific event from the database or any other data source
         // Example code using PDO:
-        $query = "SELECT * FROM events WHERE id = :eventId";
+        $query = "SELECT * FROM events WHERE event_id = :eventId";
         $stmt = $this->db->prepare($query);
         $stmt->bindParam(":eventId", $eventId);
         $stmt->execute();
@@ -81,18 +86,52 @@ class EventModel {
     }
 
     // Method to update an existing event
-    public function updateEvent($eventId, $eventData) {
+    public function updateEvent($eventData) {
         // Implement your logic to update an event in the database or any other data source
         // Example code using PDO:
-        $query = "UPDATE events SET title = :title, description = :description, date = :date WHERE id = :eventId";
+        $query = "UPDATE events SET ". 
+            "event_oganizer = :event_oganizer, ".
+            "event_name = :event_name, ".
+            "event_date = :event_date, ".
+            "event_time = :event_time, ".
+            "event_venue = :event_venue, ".
+            "event_address = :event_address, ".
+            "event_url = :event_url, ".
+            "participation_fee = :participation_fee, ".
+            "num_participants = :num_participants, ".
+            "matching_restrictions = :matching_restrictions, ".
+            "tags = :tags, ";
+        if($eventData['image_path'] != "") {
+            $query .= "image_path = :image_path, ";
+        }
+        $query .= "content = :content WHERE id = :eventId"; 
+       
         $stmt = $this->db->prepare($query);
-        $stmt->bindParam(":title", $eventData['title']);
-        $stmt->bindParam(":description", $eventData['description']);
-        $stmt->bindParam(":date", $eventData['date']);
-        $stmt->bindParam(":eventId", $eventId);
-        $stmt->execute();
-        return true;
+        $stmt->bindParam(":event_oganizer", $eventData['event_oganizer']);
+        $stmt->bindParam(":event_name", $eventData['event_name']);
+        $stmt->bindParam(":event_date", $eventData['event_date']);
+        $stmt->bindParam(":event_time", $eventData['event_time']);
+        $stmt->bindParam(":event_venue", $eventData['event_venue']);
+        $stmt->bindParam(":event_address", $eventData['event_address']);
+        $stmt->bindParam(":event_url", $eventData['event_url']);
+        $stmt->bindParam(":participation_fee", $eventData['participation_fee']);
+        $stmt->bindParam(":num_participants", $eventData['num_participants']);
+        $stmt->bindParam(":matching_restrictions", $eventData['matching_restrictions']);
+        $stmt->bindParam(":tags", $eventData['tags']);
+        if($eventData['image_path'] != "") {
+            $stmt->bindParam(":image_path", $eventData['image_path']);
+        }
+        $stmt->bindParam(":content", $eventData['content']);
+        $stmt->bindParam(":eventId", $eventData['event_id']);
+        try {
+            $stmt->execute();
+            return true;
+        } catch (PDOException $e) {
+            echo "Update failed: " . $e->getMessage();
+            return false;
+        }
     }
+    
 
     // Method to delete an event
     public function deleteEvent($eventId) {

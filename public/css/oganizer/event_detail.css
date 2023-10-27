@@ -1,0 +1,50 @@
+.top-board{
+    width: calc(100vw - 264px);
+    height: 100%;
+    position: fixed;
+    left: 275px;
+    top:70px;
+    /* background-color:aqua; */
+    padding: 20px;
+    overflow-y: scroll;
+}
+
+.align-labels {
+    display: flex;
+    align-items: flex-start;
+}
+.align-labels label {
+    flex: 0 0 200px;
+    text-align: right;
+    padding-right: 10px;
+}
+.tag-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .tag-component {
+    display: inline-flex;
+    align-items: center;
+    background-color: #f0f0f0;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin: 5px;
+    width: 100px; /* Set a constant width for the tags */
+  }
+  .tag-component .tag-text {
+    margin-right: 5px;
+  }
+  .tag-component .delete-button {
+    cursor: pointer;
+    font-size: 12px;
+    margin-left: 5px;
+  }
+#copy{
+    border: 1px solid white;
+    font-size: 15px;
+    border-radius: 10px;
+    color: white;
+    background-color: rgb(86 114 241);
+    width: 100%;
+}
