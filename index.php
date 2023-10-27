@@ -19,9 +19,8 @@ function requireFiles($directory) {
 $directory = __DIR__ . '/controllers'; // Specify the directory path
 requireFiles($directory);
 
-if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    // Handle routing
-    $action = $_GET['action'] ?? 'welcome';
+function checkSesson($action)
+{
     if($action =='welcome')
     {
         $controller = new WelcomeController();
@@ -44,6 +43,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         header("Location: index.php?action=login");
         exit;
     }
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    // Handle routing
+    $action = $_GET['action'] ?? 'welcome';
+    checkSesson($action);
     switch ($action) {
         case 'event_list':
             $controller = new WelcomeController();
@@ -88,22 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Handle routing
     $action = $_POST['action'] ?? 'login';   
-    if($action == 'login')
-    {
-        $controller = new LoginController();
-        $controller->login();
-        return;
-    }
-    if($action == 'register')
-    {
-        $controller = new RegistrationController();
-        $controller->register();
-        return;
-    }
-    if (!isset($_SESSION['login_userID'])) {
-        header("Location: index.php?action=login");
-        exit;
-    }
+    checkSesson($action);
     switch ($action) {
         case 'login':
             $controller = new LoginController();
