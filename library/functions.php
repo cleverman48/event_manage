@@ -42,15 +42,15 @@ function url2link($text)
 
     return $linkedText;
 }
-function file2Uri($file)
+function uploadImage($file)
 {
-    $fileTmpPath = $file['tmp_name'];
-    $fileMimeType = mime_content_type($fileTmpPath);
-    $fileContents = file_get_contents($fileTmpPath);
-    $fileBase64 = base64_encode($fileContents);
-    $dataUri = 'data:' . $fileMimeType . ';base64,' . $fileBase64;
+    $targetDirectory = 'public/image/avatar/';
+    $originalFilename = basename($file['name']);
+    $extension = pathinfo($originalFilename, PATHINFO_EXTENSION);
+    $targetFilename = uniqid() . '.' . $extension;
+    $targetPath = $targetDirectory . $targetFilename;
+    move_uploaded_file($file['tmp_name'], $targetPath);
 
-    return $dataUri;
+    return $targetPath;
 }
-
 ?>

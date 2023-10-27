@@ -1,7 +1,7 @@
 <div class="dashboard-wrapper mx-auto mt-2">
     <div class="container-fluid dashboard-content col-lg-10 col-md-12 mx-auto">
         <div class="row"></div>
-        <input type="hidden" name="returnPage" value="<?php echo $returnPage ;?>">
+        <input type="hidden" id="returnPage" value="<?php echo $returnPage ;?>">
         <div class="card main-center px-3 py-3">
             <div class="card-header px-0 py-0">
                 <h5 class="mb-0">マイページ</h5>
@@ -21,7 +21,7 @@
                             <label for="avatar" class="col-12 col-sm-3 col-form-label text-sm-right">プロフィール画像</label>
                             <div class="col-12 col-sm-8 col-lg-6">
                                 <input type="file" name="avatar" id="avatarInput" class="form-control-file possibleChange" disabled accept="image/*">
-                                <input type="hidden" name="avatar" value="<?php echo $user['avatar'] ;?>">
+                                <input type="hidden" name="avatar" value="<?php echo  (isset($avatar)) ? $avatar : $user['avatar'] ;?>">
                                 <div style="max-width: max-content;" class="mx-auto mt-4">
                                     <img id="avatarPreview" src="<?php echo (isset($avatar)) ? $avatar : $user['avatar']?>" alt="Avatar Preview" style="width: 150px; height: 150px; object-fit: cover;">
                                 </div>

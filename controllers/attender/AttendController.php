@@ -3,8 +3,6 @@ require_once 'models/AttenderModel.php';
 class AttendController
 {
     private $db;
-    private $returnPage;
-    private $myData;
     public function __construct(){
         global $event_db;
         $this->db = $event_db;
@@ -23,16 +21,18 @@ class AttendController
     }
     public function my_page()
     {  
-        if( is_null($this->myData) ){
-            $attender = new AttendController();
-            $user = $attender->get($_SESSION['login_userID']);
+        if( !isset($_POST['data']) ){
+            $user = $this->get($_SESSION['login_userID']);
             $username = $user['lastname'] . ' ' . $user['firstname'];
-            $this->returnPage = 'false';
+            $returnPage = 'false';
         }else{
-            $user = $this->myData;
+            $user = json_decode($_POST['data'], true);
+            $username = $user['user_name'];
+            $avatar = $_POST['avatar'];
+            $returnPage = 'true';
         }
         $files = (isset($_POST['files'])) ? $_POST['files'] :'';
-
+        
         $info_set = array();
         $info_set['gender'] = array('非回答', '男性', '女性');
         $info_set['years'] = array('非回答', '20代', '30代', '40代', '50代', '60以上', '10代');
@@ -53,17 +53,16 @@ class AttendController
             $user = $this->get($_SESSION['login_userID']);
             $username = $user['lastname'] . ' ' . $user['firstname'];
             $avatar = $user['avatar'];
+            $returnPage = false;
         } else {
             $user = $_POST;
-            $this->myData = $user;
             $username = $user['user_name'];
             if( $_FILES['avatar']['name'] != '') {
-                $avatar = $_FILES['avatar'];
-                $avatar = file2Uri($avatar);
+                $avatar = uploadImage($_FILES['avatar']);
             }else{
                 $avatar = $_POST['avatar'];
             }
-            $this->returnPage = 'true';
+            $returnPage = true;
         }
         require 'views/attender/header.php';
         require 'views/attender/preview.php';

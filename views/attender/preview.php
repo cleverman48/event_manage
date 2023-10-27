@@ -186,8 +186,14 @@
                                     <p style="white-space: pre-line; height: 220px; overflow-y: scroll;">
                                         <?php echo url2link($user['profile']); ?>
                                     </p>
-                                    <form action="index.php" method="post" class="d-flex justify-content-end mb-2 mr-3">
-                                        <input type="hidden" name="action" value="returnMypage">
+                                    <form action="index.php" method="<?php echo ($returnPage) ? 'post' : 'get'; ?>"
+                                        class="d-flex justify-content-end mb-2 mr-3">
+                                        <input type="hidden" name="action"
+                                            value="<?php echo ($returnPage) ? 'returnMypage' : 'my_page'; ?>">
+                                        <input type="hidden" name="data"
+                                            value="<?php echo htmlspecialchars(json_encode($user)); ?>">
+                                        <input type="hidden" name="avatar"
+                                            value="<?php echo $avatar ;?>">
                                         <button type="submit" class="btn btn-success mt-2 mr-4">確認</button>
                                     </form>
                                 </div>
