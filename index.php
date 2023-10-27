@@ -75,14 +75,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             }
             $controller->my_page();
             break;
-        case 'previewProfile':
-            $controller = new AttendController();
-            if (!isset($_SESSION['login_userID'])) {
-                header("Location: index.php?action=login");
-                exit;
-            }
-            $controller->previewProfile();
-            break;
         default:
             // Handle invalid action
             break;
@@ -102,10 +94,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $controller = new RegistrationController();
             $controller->register();
             break;
-        case 'attender_update':
+        case 'updateAttender':
             $controller = new AttendController();
             $controller->attender_update();
             header("Location: index.php?action=my_page");
+            break;
+        case 'previewProfile':
+            $controller = new AttendController();
+            $controller->previewProfile();
+            break;
+        case 'returnMypage':
+            $controller = new AttendController();
+            $controller->my_page();
             break;
         default:
             // Handle invalid POST request

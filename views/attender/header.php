@@ -11,32 +11,10 @@
     <link href="assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/libs/css/style.css">
     <link rel="stylesheet" href="assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
+    <link rel="stylesheet" href="assets/vendor/inputmask/css/inputmask.css" />
 
     <link rel="stylesheet" href="public/css/style.css">
     <script src="assets/vendor/jquery/jquery-3.3.1.min.js"></script>
-    <style>
-    .my-h-wrapper {
-        position: fixed;
-        top:0;
-        width: 100%;
-        z-index: 100;
-    }
-    .my-b-wrapper {
-        /* position: absolute; */
-        margin-top:60px;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 800px;
-    }
-    .footer {
-        position:fixed;
-        bottom: 0;
-        /* width: 100%; */
-    }   
-
-</style>
 </head>
 
 <body>
