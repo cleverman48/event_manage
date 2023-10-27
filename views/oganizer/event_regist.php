@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="public/css/oganizer/event_regist.css">
-<div class="top-board">
+<div class="dashboard-wrapper mt-2">
     <div class="container">
         <div class="card p-5 d-flex justify-content-center  align-items-center w-60"
         style="background-color:#d3e4ed;">

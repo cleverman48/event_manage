@@ -7,7 +7,6 @@ class WelcomeController
         require 'views/welcome.php';
         require 'views/footer.php';
     }
-
     public function event_list()
     {
         require 'views/header.php';
