@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $action = $_POST['action'] ?? 'login';
     switch ($action) {
         case 'event_insert':
-            $controller = new OganizerController($event_db);
+            $controller = new OganizerController();
             $controller->event_insert();
             break;
         case 'register':

@@ -3,11 +3,10 @@ require_once 'models/EventModel.php';
 
 class OganizerController
 {
-    private $event_db;
-
-    public function __construct($event_db)
+    
+    public function __construct()
     {
-        $this->event_db = $event_db;
+        
     }
     public function index()
     {
@@ -58,7 +57,7 @@ class OganizerController
 
         // // Establish database connection
         //$db = new PDO("mysql:host=$dbHost;dbname=$dbName;charset=utf8", $dbUser, $dbPass);
-        $event = new EventModel($this->event_db);
+        $event = new EventModel();
         $last_id = $event->createEvent($row);
         if($last_id)
         {

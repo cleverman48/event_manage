@@ -5,8 +5,9 @@ class EventModel {
     private $db; // Database connection or ORM instance
 
     // Constructor
-    public function __construct($c_db) {
-        $this->db = $c_db;
+    public function __construct() {
+        global $event_db;
+        $this->db = $event_db;
         // Check if the "events" table exists, if not, create it
         $createTableQuery = "CREATE TABLE IF NOT EXISTS events (
             id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
