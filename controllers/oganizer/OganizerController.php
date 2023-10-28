@@ -49,7 +49,7 @@ class OganizerController
             'tags' => $tags,
             'image_path' => $image,
             'content' => $content,
-            'event_oganizer' =>  $_SESSION['login_user'],
+            'event_oganizer' =>  $_SESSION['login_userID'],
             'event_id' => $event_id,
             'event_state'=>"Waiting"
         ];
@@ -81,7 +81,7 @@ class OganizerController
         $image = "";
         $content = $_POST["content"];
        
-        if($_POST["image"] != "null")
+        if($_POST["img_flg"])
         {
             $imagePath = "public/image/event/"; // Specify the path to store the images
             $imageName = $event_id.$_FILES["image"]["name"];
@@ -106,7 +106,7 @@ class OganizerController
             'tags' => $tags,
             'image_path' => $image,
             'content' => $content,
-            'event_oganizer' =>  $_SESSION['login_user'],
+            'event_oganizer' =>  $_SESSION['login_userID'],
         ];        
         $result = $this->event_model->updateEvent($row);
         if($result)

@@ -11,7 +11,7 @@
                             <a class="nav-link active" href="index.php?action=event_list" ><i class="fa fa-fw fa-rocket"></i>イベント一覧 </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" ><i class=" fas fa-users"></i>参加者一覧</a>
+                            <a class="nav-link" href="index.php?action=attender_list" ><i class=" fas fa-users"></i>参加者一覧</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#" ><i class="fas fa-list"></i>参加者メニュー</a>

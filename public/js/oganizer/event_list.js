@@ -13,7 +13,7 @@ function renderTable() {
   const endIndex = startIndex + rowsPerPage;
   const currentData = data.slice(startIndex, endIndex);
 
-  let tableHTML = "<table>";
+  let tableHTML = "<table id='myTable'>";
   tableHTML += `<tr><th>番号</th><th>イベントID</th><th>開催日時</th><th>イベント名</th><th>参加数</th><th>人数</th><th>状況</th>
   <th>クリック数</th><th>お気に入り数</th><th>詳細</th><th>参加者一覧</th></tr>`;
   currentData.forEach((item) => {
@@ -75,8 +75,41 @@ function updatePagination() {
 }
 
 function exportToExcel() {
-  // Use a library like SheetJS to generate an Excel file
-  alert("ddfdf");
+  const table = document.getElementById('myTable');
+      const rows = table.querySelectorAll('tr');
+      const csvContent = [];
+
+      // Add column headers to the CSV content
+      const headers = Array.from(rows[0].querySelectorAll('th')).map(header => header.textContent);
+      csvContent.push(headers.join(','));
+
+      // Add table data rows to the CSV content
+      for (let i = 1; i < data.length; i++) {
+        // const rowData = Array.from(rows[i].querySelectorAll('td')).map(cell => cell.textContent);
+        // csvContent.push(rowData.join(','));
+        csvContent.push(Object.values(data[i]).join(','));
+      }
+
+      // Create a Blob object from the CSV content
+      const csvData = csvContent.join('\n');
+      const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
+
+      // Create a temporary link and trigger the download
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = String(now.getMonth() + 1).padStart(2, '0');
+      const day = String(now.getDate()).padStart(2, '0');
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+      const dateTimeString = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+      link.download = 'イベント一覧'+dateTimeString+'.csv';
+      link.style.display = 'none';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
 }
 
 function handleSelectChange() {
@@ -116,7 +149,8 @@ function event_detail(event_id)
 }
 function attenders(event_id)
 {
-    alert(event_id);
+    //alert(event_id);
+    window.location.href = "index.php?action=attender_list";
 }
 
 function regist_event()

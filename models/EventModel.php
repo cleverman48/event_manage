@@ -104,7 +104,7 @@ class EventModel {
         if($eventData['image_path'] != "") {
             $query .= "image_path = :image_path, ";
         }
-        $query .= "content = :content WHERE id = :eventId"; 
+        $query .= "content = :content WHERE event_id = :eventId"; 
        
         $stmt = $this->db->prepare($query);
         $stmt->bindParam(":event_oganizer", $eventData['event_oganizer']);
@@ -125,7 +125,7 @@ class EventModel {
         $stmt->bindParam(":eventId", $eventData['event_id']);
         try {
             $stmt->execute();
-            return true;
+            return "success";
         } catch (PDOException $e) {
             echo "Update failed: " . $e->getMessage();
             return false;
