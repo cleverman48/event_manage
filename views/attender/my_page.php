@@ -140,9 +140,9 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="profile" class="col-12 col-sm-3 col-form-label text-sm-right">プロフィール</label>
+                            <label for="attender_profile" class="col-12 col-sm-3 col-form-label text-sm-right">プロフィール</label>
                             <div class="col-12 col-sm-8 col-lg-6">
-                                <textarea name="profile" id="profile" cols="30" rows="10" class="form-control possibleChange" disabled><?php echo $user['profile'] ;?></textarea>
+                                <textarea name="attender_profile" id="attender_profile" cols="30" rows="10" class="form-control possibleChange" disabled><?php echo $user['attender_profile'] ;?></textarea>
                             </div>
                         </div>
                     </div>

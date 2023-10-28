@@ -45,7 +45,9 @@
                                         class="fas fa-heart mr-2"></i>お気に入りイベント</a>
                                 <a class="dropdown-item" href="index.php?action=event_list"><i
                                         class="fas fa-users mr-2"></i>主催者メニュー</a>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#iconExplainModal"><i
+                                <a class="dropdown-item" href="index.php?action=login" <?php if (isset($_SESSION['login_userID'])) {
+                                    echo 'data-toggle="modal" data-target="#notificationSettingModal"';
+                                } ?>><i
                                         class="fas fa-cog mr-2"></i>通知設定</a>
                                 <a class="dropdown-item" href="index.php?action=logout"><i
                                         class="fas fa-power-off mr-2"></i>ログアウト</a>
@@ -57,45 +59,43 @@
         </div>
     </div>
     <!-- Modal -->
-    <div class="modal fade" id="iconExplainModal" tabindex="-1" role="dialog" aria-labelledby="iconExplainModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="notificationSettingModal" tabindex="-1" role="dialog"
+        aria-labelledby="notificationSettingModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="iconExplainModalLabel">通知設定</h5>
-                    <a href="#" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </a>
-                </div>
-                <div class="modal-body">
-                    <div class="mx-auto" style="width: max-content;">
-                        <form action="#" style="border-radius: 0px;">
-                            <div class="form-group row">
-                                <label class="col-12 col-sm-3 col-form-label text-sm-right">Success</label>
-                                <div class="col-12 col-sm-8 col-lg-6 pt-1">
-                                    <div class="switch-button switch-button-success">
-                                        <input type="checkbox" checked="" name="switch16" id="switch16"><span>
-                                            <label for="switch16"></label></span>
-                                    </div>
+            <form action="index.php">
+                <input type="hidden" name="action" value="update">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="notificationSettingModalLabel">通知設定</h5>
+                        <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </a>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <label class="col-12 col-sm-6 col-form-label text-sm-right">オファー</label>
+                            <div class="col-12 col-sm-6 col-lg-6 pt-1">
+                                <div class="switch-button switch-button-success">
+                                    <input type="checkbox" checked="" name="offerNoti" id="offerNoti"><span>
+                                        <label for="offerNoti"></label></span>
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <label class="col-12 col-sm-3 col-form-label text-sm-right">Yes/No
-                                    Labels</label>
-                                <div class="col-12 col-sm-8 col-lg-6 pt-1">
-                                    <div class="switch-button switch-button-yesno">
-                                        <input type="checkbox" checked="" name="switch19" id="switch19"><span>
-                                            <label for="switch19"></label></span>
-                                    </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-12 col-sm-6 col-form-label text-sm-right">前日確認</label>
+                            <div class="col-12 col-sm-6 col-lg-6 pt-1">
+                                <div class="switch-button switch-button-yesno">
+                                    <input type="checkbox" checked="" name="beforeNoti" id="beforeNoti"><span>
+                                        <label for="beforeNoti"></label></span>
                                 </div>
                             </div>
-                        </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" class="btn btn-primary" data-dismiss="modal">確認</a>
+                        <!-- <a href="#" class="btn btn-primary">Save changes</a> -->
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <a href="#" class="btn btn-primary" data-dismiss="modal">確認</a>
-                    <!-- <a href="#" class="btn btn-primary">Save changes</a> -->
-                </div>
-            </div>
+            </form>
         </div>
     </div>
