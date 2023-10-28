@@ -4309,7 +4309,7 @@ Pills vertical
     font-size: 12px;
     font-weight: 600;
     z-index: 0;
-    content: "ON";
+    content: "有効";
     color: #FFF;
     left: 0;
     text-align: left;
@@ -4325,7 +4325,7 @@ Pills vertical
     font-size: 12px;
     font-weight: 600;
     z-index: 0;
-    content: "OFF";
+    content: "無効";
     right: 0;
     display: block;
     width: 100%;

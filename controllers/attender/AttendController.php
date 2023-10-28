@@ -1,5 +1,5 @@
 <?php
-require_once 'models/AttenderModel.php';
+require_once 'models/UserModel.php';
 class AttendController
 {
     private $db;
@@ -70,13 +70,13 @@ class AttendController
     }
     public function get($userID)
     {
-        $attenderModel = new AttenderModel();
+        $attenderModel = new UserModel();
         return $attenderModel->get($userID);
     }
     public function attender_update()
     {
-        $attenderModel = new AttenderModel();
-        $attenderModel->updateAttender();
+        $attenderModel = new UserModel();
+        $attenderModel->update();
     }
 }
 ?>
