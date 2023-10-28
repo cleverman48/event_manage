@@ -11,32 +11,10 @@
     <link href="assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/libs/css/style.css">
     <link rel="stylesheet" href="assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
+    <link rel="stylesheet" href="assets/vendor/inputmask/css/inputmask.css" />
 
     <link rel="stylesheet" href="public/css/style.css">
     <script src="assets/vendor/jquery/jquery-3.3.1.min.js"></script>
-    <style>
-    .my-h-wrapper {
-        position: fixed;
-        top:0;
-        width: 100%;
-        z-index: 100;
-    }
-    .my-b-wrapper {
-        /* position: absolute; */
-        margin-top:60px;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 800px;
-    }
-    .footer {
-        position:fixed;
-        bottom: 0;
-        /* width: 100%; */
-    }   
-
-</style>
 </head>
 
 <body>
@@ -67,7 +45,10 @@
                                         class="fas fa-heart mr-2"></i>お気に入りイベント</a>
                                 <a class="dropdown-item" href="index.php?action=event_list"><i
                                         class="fas fa-users mr-2"></i>主催者メニュー</a>
-                                <a class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>通知設定</a>
+                                <a class="dropdown-item" href="index.php?action=login" <?php if (isset($_SESSION['login_userID'])) {
+                                    echo 'data-toggle="modal" data-target="#notificationSettingModal"';
+                                } ?>><i
+                                        class="fas fa-cog mr-2"></i>通知設定</a>
                                 <a class="dropdown-item" href="index.php?action=logout"><i
                                         class="fas fa-power-off mr-2"></i>ログアウト</a>
                             </div>
@@ -75,5 +56,46 @@
                     </ul>
                 </div>
             </nav>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="notificationSettingModal" tabindex="-1" role="dialog"
+        aria-labelledby="notificationSettingModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <form action="index.php">
+                <input type="hidden" name="action" value="update">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="notificationSettingModalLabel">通知設定</h5>
+                        <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </a>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <label class="col-12 col-sm-6 col-form-label text-sm-right">オファー</label>
+                            <div class="col-12 col-sm-6 col-lg-6 pt-1">
+                                <div class="switch-button switch-button-success">
+                                    <input type="checkbox" checked="" name="offerNoti" id="offerNoti"><span>
+                                        <label for="offerNoti"></label></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-12 col-sm-6 col-form-label text-sm-right">前日確認</label>
+                            <div class="col-12 col-sm-6 col-lg-6 pt-1">
+                                <div class="switch-button switch-button-yesno">
+                                    <input type="checkbox" checked="" name="beforeNoti" id="beforeNoti"><span>
+                                        <label for="beforeNoti"></label></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" class="btn btn-primary" data-dismiss="modal">確認</a>
+                        <!-- <a href="#" class="btn btn-primary">Save changes</a> -->
+                    </div>
+                </div>
+            </form>
         </div>
     </div>

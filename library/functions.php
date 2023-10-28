@@ -2,11 +2,7 @@
 function sanitizeInput($input)
 {
     $input = trim($input);
-
-    // Remove backslashes
     $input = stripslashes($input);
-
-    // Convert special characters to HTML entities
     $input = htmlspecialchars($input);
     return $input;
 }
@@ -19,10 +15,10 @@ function hashPassword($password)
 function my_avatar()
 {
     global $event_db;
-    
+
     $userID = isset($_SESSION['login_userID']) ? $_SESSION['login_userID'] : '';
     if ($userID != '') {
-        $sql = "SELECT avatar FROM attenders WHERE userID = :userID";
+        $sql = "SELECT avatar FROM users WHERE userID = :userID";
         $stmt = $event_db->prepare($sql);
         $stmt->bindParam(':userID', $userID);
         $stmt->execute();
@@ -35,12 +31,23 @@ function my_avatar()
 }
 function url2link($text)
 {
-    $pattern = '/(https?:\/\/\S+)/';
-    $replacement = '<a href="$1">$1</a>';
-    
+    $pattern = '/(https?:\/\/\S+|[\w.-]+@[\w.-]+\.[\w]+)/';
+    $replacement = '<a href="$1" style="color:blue;">$1</a>';
+
     $linkedText = preg_replace($pattern, $replacement, $text);
-    
+
     return $linkedText;
 }
+function uploadImage($file)
+{
+    $targetDirectory = 'public/image/upload/';
+    $originalFilename = basename($file['name']);
+    $extension = pathinfo($originalFilename, PATHINFO_EXTENSION);
+    $userID = $_SESSION['login_userID'];
+    $targetFilename = uniqid() . '_' . $userID . '.' . $extension;
+    $targetPath = $targetDirectory . $targetFilename;
+    move_uploaded_file($file['tmp_name'], $targetPath);
 
+    return $targetPath;
+}
 ?>

@@ -82,10 +82,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $controller = new AttendController();
             $controller->my_page();
             break;
-        case 'previewProfile':
-            $controller = new AttendController();
-            $controller->previewProfile();
-            break;
         default:
             // Handle invalid action
             break;
@@ -95,9 +91,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $action = $_POST['action'] ?? 'login';   
     checkSesson($action);
     switch ($action) {
-        case 'login':
-            $controller = new LoginController();
-            $controller->login();
         case 'event_insert':
             $controller = new OganizerController();
             $controller->event_insert();
@@ -110,14 +103,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $controller = new OganizerController();
             $controller->get_eventlist();
             break;
-        case 'register':
-            $controller = new RegistrationController();
-            $controller->register();
-            break;
-        case 'attender_update':
+        case 'updateAttender':
             $controller = new AttendController();
             $controller->attender_update();
             header("Location: index.php?action=my_page");
+            break;
+        case 'previewProfile':
+            $controller = new AttendController();
+            $controller->previewProfile();
+            break;
+        case 'returnMypage':
+            $controller = new AttendController();
+            $controller->my_page();
             break;
         default:
             // Handle invalid POST request

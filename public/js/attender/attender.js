@@ -7,7 +7,12 @@ function event_share() {
 
 }
 $(document).ready(function () {
-    $('#updateButton').hide();
+    if( $('#returnPage').val() == 'true' ){
+        $('.possibleChange').prop('disabled', false);
+        $('#changeButton').hide();
+    }else{
+        $('#updateButton').hide();
+    }
 
     $('#avatarInput').change(function () {
         var input = this;
@@ -25,10 +30,7 @@ $(document).ready(function () {
     });
     $('#previewButton').click(function () {
         const form = $('.form-id');
-
-        form.attr('action', 'index.php?action=previewProfile');
-
-        // Submit the form
+        $('#action').val('previewProfile');
         form.submit();
     });
     $('#changeButton').click(function(){
@@ -36,12 +38,9 @@ $(document).ready(function () {
         $('.possibleChange').prop('disabled', false);
         $('#changeButton').hide();
     });
-    // Function to handle the "確認" button click
     $('#updateButton').click(function () {
         const form = $('.form-id');
-
-        form.attr('action', 'index.php?action=attender_update');
-
+        $('#action').val('updateAttender');
         form.submit();
     });
 
