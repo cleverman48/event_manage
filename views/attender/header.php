@@ -61,9 +61,13 @@
     <!-- Modal -->
     <div class="modal fade" id="notificationSettingModal" tabindex="-1" role="dialog"
         aria-labelledby="notificationSettingModalLabel" aria-hidden="true">
+    <?php
+    $userModel = new UserModel();
+    $user = $userModel->get($_SESSION['login_userID']);
+    ?>
         <div class="modal-dialog" role="document">
-            <form action="index.php">
-                <input type="hidden" name="action" value="update">
+            <form action="index.php" method="post">
+                <input type="hidden" name="action" value="updateNoti">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="notificationSettingModalLabel">通知設定</h5>
@@ -76,7 +80,7 @@
                             <label class="col-12 col-sm-6 col-form-label text-sm-right">オファー</label>
                             <div class="col-12 col-sm-6 col-lg-6 pt-1">
                                 <div class="switch-button switch-button-success">
-                                    <input type="checkbox" checked="" name="offerNoti" id="offerNoti"><span>
+                                    <input type="checkbox" <?php echo ($user['offerNoti'] == 1) ? 'checked=""' : '' ;?>  name="offerNoti" id="offerNoti"><span>
                                         <label for="offerNoti"></label></span>
                                 </div>
                             </div>
@@ -85,14 +89,14 @@
                             <label class="col-12 col-sm-6 col-form-label text-sm-right">前日確認</label>
                             <div class="col-12 col-sm-6 col-lg-6 pt-1">
                                 <div class="switch-button switch-button-yesno">
-                                    <input type="checkbox" checked="" name="beforeNoti" id="beforeNoti"><span>
+                                    <input type="checkbox" <?php echo ($user['beforeNoti'] == 1) ? 'checked=""' : '' ;?> name="beforeNoti" id="beforeNoti"><span>
                                         <label for="beforeNoti"></label></span>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <a href="#" class="btn btn-primary" data-dismiss="modal">確認</a>
+                        <a href="#" class="btn btn-primary" id="notiConfirmButton" data-dismiss="modal">確認</a>
                         <!-- <a href="#" class="btn btn-primary">Save changes</a> -->
                     </div>
                 </div>
