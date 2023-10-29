@@ -1,9 +1,16 @@
 <?php
+require_once 'models/UserModel.php';
 require_once 'models/EventModel.php';
 class WelcomeController
 {
     public function index()
     {
+        $eventModel = new EventModel();
+        $events = $eventModel->getAllEvents();
+
+        $userModel = new UserModel();
+        $users = $userModel->all();
+
         require 'views/attender/header.php';
         require 'views/welcome.php';
         require 'views/footer.php';

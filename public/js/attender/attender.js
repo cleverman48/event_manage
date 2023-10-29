@@ -43,5 +43,10 @@ $(document).ready(function () {
         $('#action').val('updateAttender');
         form.submit();
     });
+    $('#notiConfirmButton').click(function(event) {
+        event.preventDefault(); // Prevent the default link behavior
+        var form = $('#notificationSettingModal form');
+        form.submit();
+    });
 
 });

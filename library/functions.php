@@ -50,4 +50,44 @@ function uploadImage($file)
 
     return $targetPath;
 }
+function find($array, $condition)
+{
+    foreach ($array as $item) {
+        $matchesCondition = true;
+        
+        foreach ($condition as $key => $value) {
+            if (!isset($item[$key]) || $item[$key] != $value) {
+                $matchesCondition = false;
+                break;
+            }
+        }
+        
+        if ($matchesCondition) {
+            return $item;
+        }
+    }
+
+    return null;
+}
+function where($array, $condition)
+{
+    $filteredArray = [];
+
+    foreach ($array as $item) {
+        $matchesCondition = true;
+
+        foreach ($condition as $key => $value) {
+            if (!isset($item[$key]) || $item[$key] !== $value) {
+                $matchesCondition = false;
+                break;
+            }
+        }
+
+        if ($matchesCondition) {
+            $filteredArray[] = $item;
+        }
+    }
+
+    return $filteredArray;
+}
 ?>
