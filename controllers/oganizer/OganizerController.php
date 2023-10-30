@@ -125,22 +125,17 @@ class OganizerController
         echo json_encode($response);
     }
     public function generateUniqueID() {
-        $prefix = 'EVENT'; // Optional prefix for the ID, if needed
-        $idLength = 8; // Desired length of the ID
-      
-        // Generate a unique ID using uniqid()
-        $uniqueID = uniqid($prefix, true);
-      
-        // Remove any non-digit characters from the ID
-        $numericID = preg_replace('/[^0-9]/', '', $uniqueID);
-      
-        // Trim the ID to the desired length
-        $trimmedID = substr($numericID, 0, $idLength);
-      
-        // Pad the ID with leading zeros if necessary
-        $paddedID = str_pad($trimmedID, $idLength, '0', STR_PAD_LEFT);
-      
-        return $paddedID;
+        $length = 5; // Desired length of the ID
+        $characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
+        $charactersLength = strlen($characters);
+        $uniqueId = '';
+    
+        for ($i = 0; $i < $length; $i++) {
+            $randomIndex = mt_rand(0, $charactersLength - 1);
+            $uniqueId .= $characters[$randomIndex];
+        }
+    
+        return $uniqueId;
     }      
 }
 ?>

@@ -25,11 +25,11 @@
                                     <div class="background_image" style="background-image:url(<?= $event['image_path'] ?>)">
                                     </div>
                                     <div class="date_container">
-                                        <a href="#">
+                                        <a href="<?= $event['event_url'];?>">
                                             <span
                                                 class="date_content d-flex flex-column align-items-center justify-content-center">
-                                                <div class="date_month"><?= $month = date("m", strtotime($event['event_date'])); ?>月</div>
-                                                <div class="date_day"><?= $month = date("d", strtotime($event['event_date'])); ?></div>
+                                                <div class="date_month"><?= date("m", strtotime($event['event_date'])); ?>月</div>
+                                                <div class="date_day"><?= date("d", strtotime($event['event_date'])); ?></div>
                                             </span>
                                         </a>
                                     </div>
@@ -55,7 +55,7 @@
                                     </div>
                                     <div class="event_speakers">
                                         <?php 
-                                        $organizer = find($users, ['id'=> $event['event_oganizer']]);
+                                        $organizer = find($users, ['userID'=> $event['event_oganizer']]);
                                         ?>
 
                                         <a href="#"

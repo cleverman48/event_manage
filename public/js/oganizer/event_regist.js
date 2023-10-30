@@ -1,104 +1,99 @@
-document.getElementById("eventForm").addEventListener("submit", function(event) {
-    event.preventDefault(); // Prevent form submission
+$(document).ready(function () {
+    $('.js-example-basic-multiple').select2({ 
+        tags: true,
+        maximumSelectionLength: 5 
+    });
 
-    // Get form field values
-    var eventDateTime = document.getElementById("eventDateTime").value;
-    var eventName = document.getElementById("eventName").value;
-    var venue = document.getElementById("venue").value;
-    var address = document.getElementById("address").value;
-    var url = document.getElementById("url").value;
-    var participationFee = document.getElementById("participationFee").value;
-    var numParticipants = document.getElementById("numParticipants").value;
-    var matchingRestrictions = document.getElementById("matchingRestrictions").value;
-    var image = document.getElementById("image");
-    var file = image.files[0];
-    var content = document.getElementById("content").value;
-    if(image.files.length == 0)
-    {
-      alert("画像を入力してください！");
-      return;
-    }
-    
-    var formData = new FormData(this);
+    $('#summernote').summernote({
+        height: 200
 
-    // Get the tag container and tag text elements
-    var tagContainer = document.getElementById("tagContainer");
-    var tagTextElements = tagContainer.getElementsByClassName("tag-text");
+    });
+    $('#image').change(function () {
+        var input = this;
+        var preview = $('#imagePreview');
 
-    // Extract the tag text contents and join them with dots
-    var tags = Array.from(tagTextElements).map(function(element) {
-      return element.textContent.trim();
-    }).join(",");
-    // Append the tags to the form data
-    formData.set("eventDateTime", eventDateTime);
-    formData.set("eventName", eventName);
-    formData.set("venue", venue);
-    formData.set("address", address);
-    formData.set("url", url);
-    formData.set("participationFee", participationFee);
-    formData.set("numParticipants", numParticipants);
-    formData.set("matchingRestrictions", matchingRestrictions);
-    formData.set("image", file);
-    formData.set("tags", tags);
-    formData.set("content", content);
-    formData.set("action", "event_insert");
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
 
-    // Send the form data to the server using AJAX
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "index.php", true);
-    xhr.onreadystatechange = function() {
-      if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-        if(xhr.responseText=="success") {
-            alert("登録成功");
-            window.location.href = "index.php?action=event_list";
-        };
-        //document.getElementById("eventForm").reset();
-      }
-    };
-    xhr.send(formData);
-});
+            reader.onload = function (e) {
+                preview.attr('src', e.target.result);
+            };
 
-document.getElementById("tag").addEventListener("keydown", function(event) {
-    if (event.key === "Enter") {
-      event.preventDefault(); // Prevent form submission
+            reader.readAsDataURL(input.files[0]);
+        }
+    });
 
-      var tagInput = document.getElementById("tag");
-      var tag = tagInput.value.trim();
-      if (tag) {
-        var tagContainer = document.getElementById("tagContainer");
+    $("#eventForm").submit(function (event) {
+        event.preventDefault(); // Prevent form submission
 
-        // Create tag component
-        var tagComponent = document.createElement("div");
-        tagComponent.classList.add("tag-component");
+        // Get form field values
+        var eventDateTime = $("#eventDateTime").val();
+        var eventName = $("#eventName").val();
+        var venue = $("#venue").val();
+        var address = $("#address").val();
+        var url = $("#url").val();
+        var participationFee = $("#participationFee").val();
+        var numParticipants = $("#numParticipants").val();
+        var matchingRestrictions = $("#matchingRestrictions").val();
+        var image = $("#image")[0].files[0];
+        var content = $("#content").val();
 
-        // Create tag text
-        var tagText = document.createElement("span");
-        tagText.classList.add("tag-text");
-        tagText.textContent = tag;
+        if ($("#image")[0].files.length == 0) {
+            alert("画像を入力してください！");
+            return;
+        }
 
-        // Create delete button
-        var deleteButton = document.createElement("span");
-        deleteButton.classList.add("delete-button");
-        deleteButton.innerHTML = "&#x2716;"; // Unicode for "✖"
+        var formData = new FormData(this);
+        var tags = $('.js-example-basic-multiple').val();
 
-        // Delete button click event handler
-        deleteButton.addEventListener("click", function() {
-          tagContainer.removeChild(tagComponent);
+        // Append the tags to the form data
+        formData.set("eventDateTime", eventDateTime);
+        formData.set("eventName", eventName);
+        formData.set("venue", venue);
+        formData.set("address", address);
+        formData.set("url", url);
+        formData.set("participationFee", participationFee);
+        formData.set("numParticipants", numParticipants);
+        formData.set("matchingRestrictions", matchingRestrictions);
+        formData.set("image", image);
+        formData.set("tags", tags);
+        formData.set("content", content);
+        formData.set("action", "event_insert");
+
+        // Send the form data to the server using AJAX
+        $.ajax({
+            url: "index.php",
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                if (response == "success") {
+                    alert("登録成功");
+                    window.location.href = "index.php?action=event_list";
+                }
+            }
         });
+    });
 
-        // Append tag text and delete button to tag component
-        tagComponent.appendChild(tagText);
-        tagComponent.appendChild(deleteButton);
+    $('#tag').keypress(function (event) {
+        if (event.key === 'Enter') {
+            event.preventDefault(); // Prevent form submission
 
-        // Append tag component to tag container
-        tagContainer.appendChild(tagComponent);
+            var tagValue = $(this).val().trim();
 
-        tagInput.value = "";
-      }
-    }
+            if (tagValue !== '') {
+                // Do something with the tag value, e.g., add it to a list of tags
+                console.log('Tag:', tagValue);
+
+                // Clear the input field
+                $(this).val('');
+            }
+        }
+    });
+    
 });
-function go_eventlist()
-{
+
+function go_eventlist() {
     window.location.href = "index.php?action=event_list";
 }
-
