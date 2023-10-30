@@ -43,7 +43,6 @@ class UserModel
         }
 
     }
-
     public function register($lastName, $firstName, $email, $password)
     {
         try {
@@ -116,15 +115,15 @@ class UserModel
             $firstname = $user['firstname'];
         }
 
-        $beforeNoti = (isset($_POST['beforeNoti']) ? $_POST['beforeNoti'] : $user['beforeNoti']);
-        $offerNoti = (isset($_POST['offerNoti']) ? $_POST['offerNoti'] : $user['offerNoti']);
-        if ($_FILES['avatar']['error'] == 0) {
+        $beforeNoti = (isset($_POST['beforeNoti']) ? 1 : 0);
+        $offerNoti = (isset($_POST['offerNoti']) ? 1 : 0);
+        if ( isset($_FILES['avatar']) && ($_FILES['avatar']['name'] != '')) {
             $avatarFile = $_FILES['avatar'];
             $avatar = uploadImage($avatarFile);
         } else {
             $avatar = (isset($_POST['avatar'])) ? $_POST['avatar'] : $user['avatar'];
         }
-        if ($_FILES['top_image']['error'] == 0) {
+        if ( isset($_FILES['top_image']) && ($_FILES['top_image']['error'] != '')) {
             $top_imageFile = $_FILES['top_image'];
             $top_image = uploadImage($top_imageFile);
         } else {
@@ -180,12 +179,17 @@ class UserModel
 
         return false;
     }
-
     public function reset($email)
     {
         return false;
     }
-
+    public function all() {
+        $query = "SELECT * FROM users";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $users;
+    }
     private function isUserIdExists($userId)
     {
         $stmt = $this->db->prepare('SELECT COUNT(*) FROM users WHERE userID = ?');
@@ -193,7 +197,6 @@ class UserModel
         $count = $stmt->fetchColumn();
         return $count > 0;
     }
-
     private function isEmailExists($email)
     {
         $stmt = $this->db->prepare('SELECT COUNT(*) FROM users WHERE email = ?');
@@ -201,7 +204,6 @@ class UserModel
         $count = $stmt->fetchColumn();
         return $count > 0;
     }
-
     private function generateUniqueId($length)
     {
         $characters = 'abcdefghijklmnopqrstuvwxyz0123456789';

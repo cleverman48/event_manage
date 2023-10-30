@@ -5,7 +5,8 @@ session_start();
 require_once 'library/functions.php';
 require_once 'library/config.php';
 
-function requireFiles($directory) {
+function requireFiles($directory)
+{
     $files = glob($directory . '/*.php'); // Get PHP files in the current directory
     foreach ($files as $file) {
         require_once $file;
@@ -14,27 +15,24 @@ function requireFiles($directory) {
     foreach ($subdirectories as $subdirectory) {
         requireFiles($subdirectory); // Recursively require files in subdirectories
     }
-    
+
 }
 $directory = __DIR__ . '/controllers'; // Specify the directory path
 requireFiles($directory);
 
 function checkSesson($action)
 {
-    if($action =='welcome')
-    {
+    if ($action == 'welcome') {
         $controller = new WelcomeController();
         $controller->index();
         return;
     }
-    if($action == 'login')
-    {
+    if ($action == 'login') {
         $controller = new LoginController();
         $controller->login();
         return;
     }
-    if($action == 'register')
-    {
+    if ($action == 'register') {
         $controller = new RegistrationController();
         $controller->register();
         return;
@@ -62,33 +60,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         case 'event_detail':
             $controller = new WelcomeController();
             $controller->event_detail();
-            break;  
-        case 'oganizer_participants':
-            $controller = new WelcomeController();
-            $event_id = $_GET['event_id']?? 'all';
-            $controller->getParticipants($event_id);
-            break;    
-        case 'attender_detail_public_setting':
-            $controller = new WelcomeController();
-            $controller->publicSettingPage();
-            break;
-        case 'organizer_info':
-            $controller = new WelcomeController();
-            $controller->organizerInfoPage();
-            break;
-        case 'staff_manage':
-            $controller = new WelcomeController();
-            $controller->staffManagePage();
-            break;
-        case 'inform_setting':
-            $controller = new WelcomeController();
-            $controller->informSettingPage();
-            break;
-    //*END ognaizer menu  GET*/////////////////////////////////////////////////////////////////////   
+            break;       
         case 'logout':
             $controller = new LoginController();
             $controller->logout();
-            break;        
+            break;
         case 'reset':
             $controller = new LoginController();
             $controller->reset();
@@ -98,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $controller->attend_event();
             break;
         case 'attender_list':
-            $controller = new AttendController();           
+            $controller = new AttendController();
             $controller->attender_list();
             break;
         case 'my_page':
@@ -111,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     }
 } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Handle routing
-    $action = $_POST['action'] ?? 'login';   
+    $action = $_POST['action'] ?? 'login';
     checkSesson($action);
     switch ($action) {
     /*START oganizer menu POST*///////////////////////////////////////////////////////////////////
@@ -136,6 +112,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $controller = new AttendController();
             $controller->attender_update();
             header("Location: index.php?action=my_page");
+            break;
+        case 'updateNoti':
+            $controller = new AttendController();
+            $controller->attender_update();
+            header("Location: index.php");
             break;
         case 'previewProfile':
             $controller = new AttendController();
