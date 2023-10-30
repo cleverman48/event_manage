@@ -33,7 +33,7 @@
                                 </div>
                                 <div class="col-sm-7">
                                     <p class="text-muted mb-0 text-center">
-                                        <?php echo $user['gender']; ?>
+                                        <?php echo $attender['gender']; ?>
                                     </p>
                                 </div>
                             </div>
@@ -44,7 +44,7 @@
                                 </div>
                                 <div class="col-sm-7">
                                     <p class="text-muted mb-0 text-center">
-                                        <?php echo $user['years']; ?>
+                                        <?php echo $attender['years']; ?>
                                     </p>
                                 </div>
                             </div>
@@ -55,7 +55,7 @@
                                 </div>
                                 <div class="col-sm-7">
                                     <p class="text-muted mb-0 text-center">
-                                        <?php echo $user['area']; ?>
+                                        <?php echo $attender['area']; ?>
                                     </p>
                                 </div>
                             </div>
@@ -66,7 +66,7 @@
                                 </div>
                                 <div class="col-sm-7">
                                     <p class="text-muted mb-0 text-center">
-                                        <?php echo $user['sector']; ?>
+                                        <?php echo $attender['sector']; ?>
                                     </p>
                                 </div>
                             </div>
@@ -77,7 +77,7 @@
                                 </div>
                                 <div class="col-sm-7">
                                     <p class="text-muted mb-0 text-center">
-                                        <?php echo $user['employee_size']; ?>
+                                        <?php echo $attender['employee_size']; ?>
                                     </p>
                                 </div>
                             </div>
@@ -88,7 +88,7 @@
                                 </div>
                                 <div class="col-sm-7">
                                     <p class="text-muted mb-0 text-center">
-                                        <?php echo $user['depart']; ?>
+                                        <?php echo $attender['depart']; ?>
                                     </p>
                                 </div>
                             </div>
@@ -99,7 +99,7 @@
                                 </div>
                                 <div class="col-sm-7">
                                     <p class="text-muted mb-0 text-center">
-                                        <?php echo $user['position']; ?>
+                                        <?php echo $attender['position']; ?>
                                     </p>
                                 </div>
                             </div>
@@ -115,7 +115,7 @@
                                 </div>
                                 <div class="col-sm-9">
                                     <p class="text-muted mb-0">
-                                        <?php echo $user['company']; ?>
+                                        <?php echo $attender['company']; ?>
                                     </p>
                                 </div>
                             </div>
@@ -126,7 +126,7 @@
                                 </div>
                                 <div class="col-sm-9">
                                     <p class="text-muted mb-0">
-                                        <?php echo $username; ?>
+                                        <?php echo $attendername; ?>
                                     </p>
                                 </div>
                             </div>
@@ -136,8 +136,8 @@
                                     <a href="" class="mb-0"><i class="fas fa-home fa-lg" style="color: black;"></i></a>
                                 </div>
                                 <div class="col-sm-9">
-                                    <a href="<?php echo $user['homepage']; ?>" class="mb-0">
-                                        <?php echo $user['homepage']; ?>
+                                    <a href="<?php echo $attender['homepage']; ?>" class="mb-0">
+                                        <?php echo $attender['homepage']; ?>
                                     </a>
                                 </div>
                             </div>
@@ -160,14 +160,14 @@
                                 <div class="card-body">
                                     <h5 class="mb-4 card-header">プロフィール</h5>
                                     <p style="white-space: pre-line; height: 220px; overflow-y: scroll;">
-                                        <?php echo url2link($user['attender_profile']); ?>
+                                        <?php echo url2link($attender['attender_profile']); ?>
                                     </p>
                                     <form action="index.php" method="<?php echo ($returnPage) ? 'post' : 'get'; ?>"
                                         class="d-flex justify-content-end mb-2 mr-3">
                                         <input type="hidden" name="action"
                                             value="<?php echo ($returnPage) ? 'returnMypage' : 'my_page'; ?>">
                                         <input type="hidden" name="data"
-                                            value="<?php echo htmlspecialchars(json_encode($user)); ?>">
+                                            value="<?php echo htmlspecialchars(json_encode($attender)); ?>">
                                         <input type="hidden" name="avatar"
                                             value="<?php echo $avatar ;?>">
                                         <button type="submit" class="btn btn-success mt-2 mr-4">確認</button>
@@ -180,3 +180,4 @@
             </div>
         </div>
     </section>
+</div>

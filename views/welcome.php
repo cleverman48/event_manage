@@ -79,6 +79,11 @@
                         </div>
                     </div>
                     <?php endforeach; ?>
+                    <?php 
+                    if(empty($events)){
+                        echo '<h4 class="text-center">表示するイベントはありません。</h4>';
+                    }
+                    ?>
                 </div>
             </div>
             <!-- <div class="row">
