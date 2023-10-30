@@ -3,14 +3,14 @@
     height: 100%;
     position: fixed;
     left: 275px;
-    top:70px;
+    /* top:70px; */
     /* background-color:aqua; */
-    padding: 20px;
+    /* padding: 20px; */
     overflow-y: scroll;
 }
 .align-labels {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
 }
 .align-labels label {
     flex: 0 0 200px;

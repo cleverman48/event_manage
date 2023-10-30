@@ -125,7 +125,7 @@ class EventModel {
         $stmt->bindParam(":eventId", $eventData['event_id']);
         try {
             $stmt->execute();
-            return true;
+            return "success";
         } catch (PDOException $e) {
             echo "Update failed: " . $e->getMessage();
             return false;

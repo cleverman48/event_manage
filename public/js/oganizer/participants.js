@@ -14,13 +14,13 @@ function renderTable() {
   const currentData = data.slice(startIndex, endIndex);
 
   let tableHTML = "<table id='myTable'>";
-  tableHTML += `<tr><th>番号</th><th>イベントID</th><th>開催日時</th><th>イベント名</th><th>参加数</th><th>人数</th><th>状況</th>
-  <th>クリック数</th><th>お気に入り数</th><th>詳細</th><th>参加者一覧</th></tr>`;
+  tableHTML += `<tr><th>番号</th><th>開催日時</th><th>イベント名</th><th>参加者ID</th>
+                <th>性 名</th><th>企業名</th><th>招待者ID</th><th>ステータス</th><th>詳細</th><th>マッチング確認</th></tr>`;
   currentData.forEach((item) => {
-    tableHTML += `<tr><td>${item.no}</td><td>${item.event_id}</td><td>${item.event_date} ${item.event_time}</td><td>${item.event_name}</td><td>${item.num_attend}</td><td>${item.num_participants}</td><td>${item.event_state}</td>
-    <td>${item.clicks}</td><td>${item.favorites}</td>
-    <td><button style='background-color: #c9ad3d;' onclick="event_detail('${item.event_id}')">詳細</button></td>
-    <td><button style='background-color: #c9ad3d;' onclick="attenders('${item.event_id}')">参加者一覧</button></td>
+    tableHTML += `<tr><td>${item.no}</td><td>${item.event_date} ${item.event_time}</td><td>${item.event_name}</td><td>${item.attender_id}</td>
+    <td>${item.attender_name}</td><td>${item.company}</td><td>${item.inviter_id}</td><td>${item.status}</td>
+    <td><button style='background-color: #c9ad3d;' onclick="attender_detail('${item.attender_id}')">詳細</button></td>
+    <td><button style='background-color: #c9ad3d;' onclick="check_matching('${item.event_id}','${item.attender_id}')">マッチング確認</button></td>
     </tr>`;
   });
   tableHTML += "</table>";
@@ -105,7 +105,7 @@ function exportToExcel() {
       const minutes = String(now.getMinutes()).padStart(2, '0');
       const seconds = String(now.getSeconds()).padStart(2, '0');
       const dateTimeString = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-      link.download = 'イベント一覧'+dateTimeString+'.csv';
+      link.download = '参加者一覧'+dateTimeString+'.csv';
       link.style.display = 'none';
       document.body.appendChild(link);
       link.click();
@@ -143,27 +143,24 @@ var currentDate = new Date();
 var formattedDate = currentDate.toISOString().slice(0, 10);
 document.getElementById("dateInput").value = formattedDate;
 
-function event_detail(event_id)
+function attender_detail(attender_id)
 {
-  window.location.href = "index.php?action=event_detail&event_id=" + event_id;
+ 
 }
-function attenders(event_id)
+function check_matching(event_id,attender_id)
 {
-    window.location.href = "index.php?action=oganizer_participants&event_id=" + event_id;
-}
-
-function regist_event()
-{
-    window.location.href = "index.php?action=event_regist";
+    
 }
 
 $(document).ready(function() {
   // Your code here
+  let event_id = document.getElementById("event_id").value;
   $.ajax({
     url: 'index.php',
     type: 'POST',
     data: {
-      action: "get_eventlist",
+      action: "get_attenderlist",
+      event_id: event_id
     },
     success: function(response) {
         let res = JSON.parse(response);
@@ -172,9 +169,6 @@ $(document).ready(function() {
           let no=1;
           res.data.forEach((item) => {
             item.no = no;
-            item.num_attend = no;
-            item.clicks = no;
-            item.favorites = no;
             data.push(item);
             no++;
           });

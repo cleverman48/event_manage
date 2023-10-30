@@ -34,7 +34,6 @@ class LoginController
         header('Location: index.php');
         exit;
     }
-
     
     public function reset()
     {

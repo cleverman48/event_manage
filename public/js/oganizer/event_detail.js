@@ -97,7 +97,8 @@ document.getElementById("eventForm").addEventListener("submit", function(event) 
     var numParticipants = document.getElementById("numParticipants").value;
     var matchingRestrictions = document.getElementById("matchingRestrictions").value;
     var image = document.getElementById("image");
-    var file = image.files[0]==null ? "null" : image.files[0];
+    var file = image.files[0];
+    var img_flg = image.files.length==0?false:true;
     var content = document.getElementById("content").value;
 
     
@@ -125,6 +126,7 @@ document.getElementById("eventForm").addEventListener("submit", function(event) 
     formData.set("tags", tags);
     formData.set("content", content);
     formData.set("action", "event_update");
+    formData.set("img_flg", img_flg);
 
     // Send the form data to the server using AJAX
     var xhr = new XMLHttpRequest();
@@ -140,3 +142,4 @@ document.getElementById("eventForm").addEventListener("submit", function(event) 
     };
     xhr.send(formData);
 });
+

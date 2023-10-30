@@ -13,7 +13,11 @@ document.getElementById("eventForm").addEventListener("submit", function(event) 
     var image = document.getElementById("image");
     var file = image.files[0];
     var content = document.getElementById("content").value;
-
+    if(image.files.length == 0)
+    {
+      alert("画像を入力してください！");
+      return;
+    }
     
     var formData = new FormData(this);
 
@@ -97,3 +101,4 @@ function go_eventlist()
 {
     window.location.href = "index.php?action=event_list";
 }
+

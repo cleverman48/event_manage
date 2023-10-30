@@ -55,8 +55,15 @@
 
                 <div class="align-labels">
                     <label for="matchingRestrictions" class="form-label">マッチング制限:</label>
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="matchingRestrictions">
+                    <div class="form-group w-100">     
+                        <input type="number" min="1" max="5" list="options" id="matchingRestrictions" class="form-control" required>
+                        <datalist id="options">
+                            <option value="1">
+                            <option value="2">
+                            <option value="3">
+                            <option value="4">
+                            <option value="5">
+                        </datalist>
                     </div>
                 </div>
                 <div class="tag-container" id="tagContainer"></div>

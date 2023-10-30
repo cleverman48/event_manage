@@ -1,0 +1,45 @@
+.top-board{
+    width: calc(100vw - 264px);
+    height: 100%;
+    position: fixed;
+    left: 275px;
+    /* top:70px; */
+    /* background-color:aqua; */
+    /* padding: 20px; */
+    overflow-y: scroll;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.form-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+
+  }
+
+  .form-row label {
+    width: 120px;
+    text-align: right;
+    margin-right: 10px;
+  }
+
+  .form-row input,
+  .form-row textarea {
+    width: 300px;
+  }
+.pane
+{
+    width: 80%;
+    background-color: rgb(182 217 193);
+    border-radius: 10px;
+}
+h3
+{
+    text-align: center;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

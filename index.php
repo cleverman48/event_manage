@@ -48,6 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $action = $_GET['action'] ?? 'welcome';
     checkSesson($action);
     switch ($action) {
+    /*START ognaizer menu GET*////////////////////////////////////////////////////////////////
         case 'event_list':
             $controller = new WelcomeController();
             $controller->event_list();
@@ -59,7 +60,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         case 'event_detail':
             $controller = new WelcomeController();
             $controller->event_detail();
+            break;  
+        case 'oganizer_participants':
+            $controller = new WelcomeController();
+            $event_id = $_GET['event_id']?? 'all';
+            $controller->getParticipants($event_id);
+            break;    
+        case 'attender_detail_public_setting':
+            $controller = new WelcomeController();
+            $controller->publicSettingPage();
             break;
+        case 'organizer_info':
+            $controller = new WelcomeController();
+            $controller->organizerInfoPage();
+            break;
+        case 'staff_manage':
+            $controller = new WelcomeController();
+            $controller->staffManagePage();
+            break;
+        case 'inform_setting':
+            $controller = new WelcomeController();
+            $controller->informSettingPage();
+            break;
+    //*END ognaizer menu  GET*/////////////////////////////////////////////////////////////////////   
         case 'logout':
             $controller = new LoginController();
             $controller->logout();
@@ -89,6 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $action = $_POST['action'] ?? 'login';
     checkSesson($action);
     switch ($action) {
+    /*START oganizer menu POST*///////////////////////////////////////////////////////////////////
         case 'event_insert':
             $controller = new OganizerController();
             $controller->event_insert();
@@ -101,6 +125,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $controller = new OganizerController();
             $controller->get_eventlist();
             break;
+        case 'get_attenderlist':
+            $controller = new AttenderManageController();
+            $controller->get_attenderlist();
+            break;
+    /*END oganizer menu POST*//////////////////////////////////////////////////////////////////////
         case 'updateAttender':
             $controller = new AttendController();
             $controller->attender_update();
