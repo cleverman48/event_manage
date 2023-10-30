@@ -231,3 +231,4 @@
         </div>
     </div>
 </div>
+<script src="public/js/attender/attender.js"></script>

@@ -21,9 +21,9 @@
                             <label for="avatar" class="col-12 col-sm-3 col-form-label text-sm-right">プロフィール画像</label>
                             <div class="col-12 col-sm-8 col-lg-6">
                                 <input type="file" name="avatar" id="avatarInput" class="form-control-file possibleChange" disabled accept="image/*">
-                                <input type="hidden" name="avatar" value="<?php echo  (isset($avatar)) ? $avatar : $user['avatar'] ;?>">
+                                <input type="hidden" name="avatar" value="<?php echo  (isset($avatar)) ? $avatar : $attender['avatar'] ;?>">
                                 <div style="max-width: max-content;" class="mx-auto mt-4">
-                                    <img id="avatarPreview" src="<?php echo (isset($avatar)) ? $avatar : $user['avatar']?>" alt="Avatar Preview" style="width: 150px; height: 150px; object-fit: cover;">
+                                    <img id="avatarPreview" src="<?php echo (isset($avatar)) ? $avatar : $attender['avatar']?>" alt="Avatar Preview" style="width: 150px; height: 150px; object-fit: cover;">
                                 </div>
                             </div>
                         </div>
@@ -31,21 +31,21 @@
                             <label for="user_name" class="col-12 col-sm-3 col-form-label text-sm-right">姓　名</label>
                             <div class="col-12 col-sm-8 col-lg-6">
                                 <input type="text" name="user_name" class="form-control possibleChange" disabled
-                                    value="<?php echo $username; ?>">
+                                    value="<?php echo $attendername; ?>">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="email" class="col-12 col-sm-3 col-form-label text-sm-right">メールアドレス</label>
                             <div class="col-12 col-sm-8 col-lg-6">
                                 <input type="text" name="email" class="form-control possibleChange" disabled
-                                    value="<?php echo $user['email']; ?>">
+                                    value="<?php echo $attender['email']; ?>">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="company" class="col-12 col-sm-3 col-form-label text-sm-right">企業名</label>
                             <div class="col-12 col-sm-8 col-lg-6">
                                 <input type="text" name="company" class="form-control possibleChange" disabled
-                                    value="<?php echo $user['company']; ?>">
+                                    value="<?php echo $attender['company']; ?>">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -53,7 +53,7 @@
                             <div class="col-12 col-sm-8 col-lg-6">
                                 <select name="gender" id="gender" class="form-control possibleChange" disabled>
                                     <?php foreach ($info_set['gender'] as $gender): ?>
-                                        <option value="<?= $gender ?>" <?= ($gender == $user['gender']) ? 'selected' : '' ?>>
+                                        <option value="<?= $gender ?>" <?= ($gender == $attender['gender']) ? 'selected' : '' ?>>
                                             <?= $gender ?>
                                         </option>
                                     <?php endforeach; ?>
@@ -65,7 +65,7 @@
                             <div class="col-12 col-sm-8 col-lg-6">
                                 <select name="years" id="years" class="form-control possibleChange" disabled>
                                     <?php foreach ($info_set['years'] as $years): ?>
-                                        <option value="<?= $years ?>" <?= ($years == $user['years']) ? 'selected' : '' ?>>
+                                        <option value="<?= $years ?>" <?= ($years == $attender['years']) ? 'selected' : '' ?>>
                                             <?= $years ?>
                                         </option>
                                     <?php endforeach; ?>
@@ -77,7 +77,7 @@
                             <div class="col-12 col-sm-8 col-lg-6">
                                 <select name="area" id="area" class="form-control possibleChange" disabled>
                                     <?php foreach ($info_set['area'] as $area): ?>
-                                        <option value="<?= $area ?>" <?= ($area == $user['area']) ? 'selected' : '' ?>>
+                                        <option value="<?= $area ?>" <?= ($area == $attender['area']) ? 'selected' : '' ?>>
                                             <?= $area ?>
                                         </option>
                                     <?php endforeach; ?>
@@ -89,7 +89,7 @@
                             <div class="col-12 col-sm-8 col-lg-6">
                                 <select name="sector" id="sector" class="form-control possibleChange" disabled>
                                     <?php foreach ($info_set['sector'] as $sector): ?>
-                                        <option value="<?= $sector ?>" <?= ($sector == $user['sector']) ? 'selected' : '' ?>>
+                                        <option value="<?= $sector ?>" <?= ($sector == $attender['sector']) ? 'selected' : '' ?>>
                                             <?= $sector ?>
                                         </option>
                                     <?php endforeach; ?>
@@ -101,7 +101,7 @@
                             <div class="col-12 col-sm-8 col-lg-6">
                                 <select name="employee_size" id="employee_size" class="form-control possibleChange" disabled>
                                     <?php foreach ($info_set['employee_size'] as $employee_size): ?>
-                                        <option value="<?= $employee_size ?>" <?= ($employee_size == $user['employee_size']) ? 'selected' : '' ?>>
+                                        <option value="<?= $employee_size ?>" <?= ($employee_size == $attender['employee_size']) ? 'selected' : '' ?>>
                                             <?= $employee_size ?>
                                         </option>
                                     <?php endforeach; ?>
@@ -113,7 +113,7 @@
                             <div class="col-12 col-sm-8 col-lg-6">
                                 <select name="depart" id="depart" class="form-control possibleChange" disabled>
                                     <?php foreach ($info_set['depart'] as $depart): ?>
-                                        <option value="<?= $depart ?>" <?= ($depart == $user['depart']) ? 'selected' : '' ?>>
+                                        <option value="<?= $depart ?>" <?= ($depart == $attender['depart']) ? 'selected' : '' ?>>
                                             <?= $depart ?>
                                         </option>
                                     <?php endforeach; ?>
@@ -125,7 +125,7 @@
                             <div class="col-12 col-sm-8 col-lg-6">
                                 <select name="position" id="position" class="form-control possibleChange" disabled>
                                     <?php foreach ($info_set['position'] as $position): ?>
-                                        <option value="<?= $position ?>" <?= ($position == $user['position']) ? 'selected' : '' ?>>
+                                        <option value="<?= $position ?>" <?= ($position == $attender['position']) ? 'selected' : '' ?>>
                                             <?= $position ?>
                                         </option>
                                     <?php endforeach; ?>
@@ -136,13 +136,13 @@
                             <label for="homepage" class="col-12 col-sm-3 col-form-label text-sm-right">ホームページ</label>
                             <div class="col-12 col-sm-8 col-lg-6">
                                 <input type="text" name="homepage" class="form-control possibleChange" disabled
-                                    value="<?php echo $user['homepage']; ?>">
+                                    value="<?php echo $attender['homepage']; ?>">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="attender_profile" class="col-12 col-sm-3 col-form-label text-sm-right">プロフィール</label>
                             <div class="col-12 col-sm-8 col-lg-6">
-                                <textarea name="attender_profile" id="attender_profile" cols="30" rows="10" class="form-control possibleChange" disabled><?php echo $user['attender_profile'] ;?></textarea>
+                                <textarea name="attender_profile" id="attender_profile" cols="30" rows="10" class="form-control possibleChange" disabled><?php echo $attender['attender_profile'] ;?></textarea>
                             </div>
                         </div>
                     </div>

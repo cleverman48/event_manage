@@ -22,12 +22,12 @@ class AttendController
     public function my_page()
     {  
         if( !isset($_POST['data']) ){
-            $user = $this->get($_SESSION['login_userID']);
-            $username = $user['lastname'] . ' ' . $user['firstname'];
+            $attender = $this->get($_SESSION['login_userID']);
+            $attendername = $attender['lastname'] . ' ' . $attender['firstname'];
             $returnPage = 'false';
         }else{
-            $user = json_decode($_POST['data'], true);
-            $username = $user['user_name'];
+            $attender = json_decode($_POST['data'], true);
+            $attendername = $attender['user_name'];
             $avatar = $_POST['avatar'];
             $returnPage = 'true';
         }
@@ -50,13 +50,13 @@ class AttendController
     public function previewProfile()
     {
         if (!isset($_POST['gender'])) {
-            $user = $this->get($_SESSION['login_userID']);
-            $username = $user['lastname'] . ' ' . $user['firstname'];
-            $avatar = $user['avatar'];
+            $attender = $this->get($_SESSION['login_userID']);
+            $attendername = $attender['lastname'] . ' ' . $attender['firstname'];
+            $avatar = $attender['avatar'];
             $returnPage = false;
         } else {
-            $user = $_POST;
-            $username = $user['user_name'];
+            $attender = $_POST;
+            $attendername = $attender['user_name'];
             if( $_FILES['avatar']['name'] != '') {
                 $avatar = uploadImage($_FILES['avatar']);
             }else{
