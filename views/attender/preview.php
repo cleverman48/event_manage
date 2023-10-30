@@ -144,12 +144,14 @@
                             <hr>
                             <div class="row">
                                 <div class="col-sm-3">
-                                    <a href="" class="mb-0"><i class="fab fa-facebook-f fa-lg"
-                                            style="color: #3b5998;"></i></a>
+                                    <a href="" class="mb-0"><i class="fab <?php echo sns2icon($attender['sns']) ;?> fa-lg">
+                                        </i>
+                                    </a>
                                 </div>
                                 <div class="col-sm-9">
-                                    <a href="https://www.facebook.com/*****"
-                                        class="mb-0">https://www.facebook.com/aaaaaa</a>
+                                    <a href="<?php echo $attender['sns']; ?>" class="mb-0">
+                                        <?php echo $attender['sns']; ?>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -168,8 +170,7 @@
                                             value="<?php echo ($returnPage) ? 'returnMypage' : 'my_page'; ?>">
                                         <input type="hidden" name="data"
                                             value="<?php echo htmlspecialchars(json_encode($attender)); ?>">
-                                        <input type="hidden" name="avatar"
-                                            value="<?php echo $avatar ;?>">
+                                        <input type="hidden" name="avatar" value="<?php echo $avatar; ?>">
                                         <button type="submit" class="btn btn-success mt-2 mr-4">確認</button>
                                     </form>
                                 </div>

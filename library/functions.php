@@ -38,6 +38,21 @@ function url2link($text)
 
     return $linkedText;
 }
+function sns2icon($link)
+{
+    if (strpos($link, 'facebook') !== false) {
+        return 'fa-facebook-f facebook-color';
+    } elseif (strpos($link, 'twitter') !== false) {
+        return 'fa-twitter twitter-color';
+    } elseif (strpos($link, 'youtube') !== false) {
+        return 'fa-youtube youtube-color';
+    } elseif (strpos($link, 'linkedin') !== false) {
+        return 'fa-linkedin-in linkedin-color';
+    }
+    else {
+        return 'Unknown';
+    }
+}
 function uploadImage($file)
 {
     $targetDirectory = 'public/image/upload/';
