@@ -35,13 +35,6 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="email" class="col-12 col-sm-3 col-form-label text-sm-right">メールアドレス</label>
-                            <div class="col-12 col-sm-8 col-lg-6">
-                                <input type="text" name="email" class="form-control possibleChange" disabled
-                                    value="<?php echo $attender['email']; ?>">
-                            </div>
-                        </div>
-                        <div class="form-group row">
                             <label for="company" class="col-12 col-sm-3 col-form-label text-sm-right">企業名</label>
                             <div class="col-12 col-sm-8 col-lg-6">
                                 <input type="text" name="company" class="form-control possibleChange" disabled
@@ -137,6 +130,13 @@
                             <div class="col-12 col-sm-8 col-lg-6">
                                 <input type="text" name="homepage" class="form-control possibleChange" disabled
                                     value="<?php echo $attender['homepage']; ?>">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="sns" class="col-12 col-sm-3 col-form-label text-sm-right">SNS</label>
+                            <div class="col-12 col-sm-8 col-lg-6">
+                                <input type="text" name="sns" class="form-control possibleChange" disabled
+                                    value="<?php echo $attender['sns']; ?>">
                             </div>
                         </div>
                         <div class="form-group row">
