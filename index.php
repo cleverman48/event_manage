@@ -60,7 +60,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         case 'event_detail':
             $controller = new WelcomeController();
             $controller->event_detail();
-            break;       
+            break;  
+        case 'oganizer_participants':
+            $controller = new WelcomeController();
+            $event_id = $_GET['event_id']?? 'all';
+            $controller->getParticipants($event_id);
+            break;    
+        case 'attender_detail_public_setting':
+            $controller = new WelcomeController();
+            $controller->publicSettingPage();
+            break;
+        case 'organizer_info':
+            $controller = new WelcomeController();
+            $controller->organizerInfoPage();
+            break;
+        case 'staff_manage':
+            $controller = new WelcomeController();
+            $controller->staffManagePage();
+            break;
+        case 'inform_setting':
+            $controller = new WelcomeController();
+            $controller->informSettingPage();
+            break;
+    //*END ognaizer menu  GET*/////////////////////////////////////////////////////////////////////   
         case 'logout':
             $controller = new LoginController();
             $controller->logout();
