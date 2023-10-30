@@ -1641,7 +1641,7 @@ Left Navigation Sidebar
     position: fixed;
     width: 264px;
     height: 100%;
-    top: 60px;
+    /* top: 60px; */
     overflow: auto;
     background-color: #fff;
     -webkit-box-shadow: 0px 0px 28px 0px rgba(82, 63, 105, 0.13);

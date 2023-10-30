@@ -81,7 +81,7 @@ class OganizerController
         $image = "";
         $content = $_POST["content"];
        
-        if($_POST["img_flg"])
+        if($_POST["img_flg"]=="true")
         {
             $imagePath = "public/image/event/"; // Specify the path to store the images
             $imageName = $event_id.$_FILES["image"]["name"];
@@ -141,7 +141,6 @@ class OganizerController
         $paddedID = str_pad($trimmedID, $idLength, '0', STR_PAD_LEFT);
       
         return $paddedID;
-    }
-      
+    }      
 }
 ?>
