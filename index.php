@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $action = $_GET['action'] ?? 'welcome';
     checkSesson($action);
     switch ($action) {
-    /*START ognaizer menu GET*////////////////////////////////////////////////////////////////
+        /*START ognaizer menu GET*////////////////////////////////////////////////////////////////
         case 'event_list':
             $controller = new WelcomeController();
             $controller->event_list();
@@ -60,12 +60,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         case 'event_detail':
             $controller = new WelcomeController();
             $controller->event_detail();
-            break;  
+            break;
         case 'oganizer_participants':
             $controller = new WelcomeController();
-            $event_id = $_GET['event_id']?? 'all';
+            $event_id = $_GET['event_id'] ?? 'all';
             $controller->getParticipants($event_id);
-            break;    
+            break;
         case 'attender_detail_public_setting':
             $controller = new WelcomeController();
             $controller->publicSettingPage();
@@ -82,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $controller = new WelcomeController();
             $controller->informSettingPage();
             break;
-    //*END ognaizer menu  GET*/////////////////////////////////////////////////////////////////////   
+        //*END ognaizer menu  GET*/////////////////////////////////////////////////////////////////////   
         case 'logout':
             $controller = new LoginController();
             $controller->logout();
@@ -103,6 +103,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $controller = new AttendController();
             $controller->my_page();
             break;
+        case 'attendEvent':
+            $controller = new AttendController();
+            $controller->attendEvent();
+            header("Location: index.php?action=attend_event");
+            break;
         default:
             // Handle invalid action
             break;
@@ -112,7 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $action = $_POST['action'] ?? 'login';
     checkSesson($action);
     switch ($action) {
-    /*START oganizer menu POST*///////////////////////////////////////////////////////////////////
+        /*START oganizer menu POST*///////////////////////////////////////////////////////////////////
         case 'event_insert':
             $controller = new OganizerController();
             $controller->event_insert();
@@ -129,7 +134,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $controller = new AttenderManageController();
             $controller->get_attenderlist();
             break;
-    /*END oganizer menu POST*//////////////////////////////////////////////////////////////////////
+        /*END oganizer menu POST*//////////////////////////////////////////////////////////////////////
         case 'updateAttender':
             $controller = new AttendController();
             $controller->attender_update();
@@ -148,6 +153,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $controller = new AttendController();
             $controller->my_page();
             break;
+        case 'add_favorite':
+            $controller = new AttendController();
+            $controller->add_favorite();
+
         default:
             // Handle invalid POST request
             break;

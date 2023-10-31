@@ -24,197 +24,103 @@
             <h3>参加イベント</h3>
             <div class="row attend_event border-bottom">
                 <div class="col">
-                    <div class="event mb-4">
-                        <div class="row row-lg-eq-height">
-                            <div class="col-lg-3 event_col">
-                                <div class="event_image_container">
-                                    <a href="#" class="background_image" style="background-image:url(public/image/event.jpg)">
-                                    </a>
-                                    <div class="date_container">
-                                        <a href="#">
-                                            <span
-                                                class="date_content d-flex flex-column align-items-center justify-content-center">
-                                                <div class="date_month">9月</div>
-                                                <div class="date_day">15</div>
-                                            </span>
+                    <?php foreach ($attend_events as $event): ?>
+                        <div class="event mb-4">
+                            <div class="row row-lg-eq-height">
+                                <div class="col-lg-3 event_col">
+                                    <div class="event_image_container">
+                                        <a href="#" class="background_image"
+                                            style="background-image:url(<?= $event['image_path'] ?>)">
                                         </a>
+                                        <div class="date_container">
+                                            <a href="<?= $event['event_url']; ?>">
+                                                <span
+                                                    class="date_content d-flex flex-column align-items-center justify-content-center">
+                                                    <div class="date_month">
+                                                        <?= date("m", strtotime($event['event_date'])); ?>月
+                                                    </div>
+                                                    <div class="date_day">
+                                                        <?= date("d", strtotime($event['event_date'])); ?>
+                                                    </div>
+                                                </span>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-9 event_col">
-                                <div class="event_content">
-                                    <div class="event_title">ダミータイトルです。</div>
-                                    <div class="event_location">@オンラインイベント株式会社</div>
-                                    <div class="event_text">
-                                        <p>誰かが恐れ、悲しみの層にひれ伏すまで。 今はまだ始まったばかりですが、
-                                        メンバーは今、クラスの限界です。 このクラスは、静かに海岸に向かう仲間に適しています。
-                                        彼らは私たちの結婚生活やヒメナエの計画を通してねじれます。 以前でも
-                                        ライフ プール トラック vulputate チョコレートアキュムさん社員まで。</p>
+                                <div class="col-lg-9 event_col">
+                                    <div class="event_content">
+                                        <div class="event_title">
+                                            <?= $event['event_name'] ?>
+                                        </div>
+                                        <div class="event_location">@
+                                            <?= $event['event_venue'] ?>
+                                        </div>
+                                        <div class="event_text">
+                                            <p>
+                                                <?= $event['content'] ?>
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="event mb-4">
-                        <div class="row row-lg-eq-height">
-                            <div class="col-lg-3 event_col">
-                                <div class="event_image_container">
-                                    <a href="#" class="background_image" style="background-image:url(public/image/event.jpg)">
-                                    </a>
-                                    <div class="date_container">
-                                        <a href="#">
-                                            <span
-                                                class="date_content d-flex flex-column align-items-center justify-content-center">
-                                                <div class="date_month">9月</div>
-                                                <div class="date_day">15</div>
-                                            </span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-9 event_col">
-                                <div class="event_content">
-                                    <div class="event_title">ダミータイトルです。</div>
-                                    <div class="event_location">@オンラインイベント株式会社</div>
-                                    <div class="event_text">
-                                        <p>誰かが恐れ、悲しみの層にひれ伏すまで。 今はまだ始まったばかりですが、
-                                        メンバーは今、クラスの限界です。 このクラスは、静かに海岸に向かう仲間に適しています。
-                                        彼らは私たちの結婚生活やヒメナエの計画を通してねじれます。 以前でも
-                                        ライフ プール トラック vulputate チョコレートアキュムさん社員まで。</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="event mb-4">
-                        <div class="row row-lg-eq-height">
-                            <div class="col-lg-3 event_col">
-                                <div class="event_image_container">
-                                    <a href="#" class="background_image" style="background-image:url(public/image/event.jpg)">
-                                    </a>
-                                    <div class="date_container">
-                                        <a href="#">
-                                            <span
-                                                class="date_content d-flex flex-column align-items-center justify-content-center">
-                                                <div class="date_month">9月</div>
-                                                <div class="date_day">15</div>
-                                            </span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-9 event_col">
-                                <div class="event_content">
-                                    <div class="event_title">ダミータイトルです。</div>
-                                    <div class="event_location">@オンラインイベント株式会社</div>
-                                    <div class="event_text">
-                                        <p>誰かが恐れ、悲しみの層にひれ伏すまで。 今はまだ始まったばかりですが、
-                                        メンバーは今、クラスの限界です。 このクラスは、静かに海岸に向かう仲間に適しています。
-                                        彼らは私たちの結婚生活やヒメナエの計画を通してねじれます。 以前でも
-                                        ライフ プール トラック vulputate チョコレートアキュムさん社員まで。</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <?php endforeach; ?>
+                    <?php 
+                    if(empty($attend_events)){
+                        echo '<h4 class="text-center">表示するイベントはありません。</h4>';
+                    }
+                    ?>
                 </div>
             </div>
             <h3 class="mt-5">終了イベント</h3>
             <div class="row end_event">
                 <div class="col">
-                    <div class="event mb-4">
-                        <div class="row row-lg-eq-height">
-                            <div class="col-lg-3 event_col">
-                                <div class="event_image_container">
-                                    <a href="#" class="background_image" style="background-image:url(public/image/event.jpg)">
-                                    </a>
-                                    <div class="date_container">
-                                        <a href="#">
-                                            <span
-                                                class="date_content d-flex flex-column align-items-center justify-content-center">
-                                                <div class="date_month">9月</div>
-                                                <div class="date_day">15</div>
-                                            </span>
+                    <?php foreach ($old_events as $event): ?>
+                        <div class="event mb-4">
+                            <div class="row row-lg-eq-height">
+                                <div class="col-lg-3 event_col">
+                                    <div class="event_image_container">
+                                        <a href="#" class="background_image"
+                                            style="background-image:url(<?= $event['image_path'] ?>)">
                                         </a>
+                                        <div class="date_container">
+                                            <a href="<?= $event['event_url']; ?>">
+                                                <span
+                                                    class="date_content d-flex flex-column align-items-center justify-content-center">
+                                                    <div class="date_month">
+                                                        <?= date("m", strtotime($event['event_date'])); ?>月
+                                                    </div>
+                                                    <div class="date_day">
+                                                        <?= date("d", strtotime($event['event_date'])); ?>
+                                                    </div>
+                                                </span>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-9 event_col">
-                                <div class="event_content">
-                                    <div class="event_title">ダミータイトルです。</div>
-                                    <div class="event_location">@オンラインイベント株式会社</div>
-                                    <div class="event_text">
-                                        <p>誰かが恐れ、悲しみの層にひれ伏すまで。 今はまだ始まったばかりですが、
-                                        メンバーは今、クラスの限界です。 このクラスは、静かに海岸に向かう仲間に適しています。
-                                        彼らは私たちの結婚生活やヒメナエの計画を通してねじれます。 以前でも
-                                        ライフ プール トラック vulputate チョコレートアキュムさん社員まで。</p>
+                                <div class="col-lg-9 event_col">
+                                    <div class="event_content">
+                                        <div class="event_title">
+                                            <?= $event['event_name'] ?>
+                                        </div>
+                                        <div class="event_location">@
+                                            <?= $event['event_venue'] ?>
+                                        </div>
+                                        <div class="event_text">
+                                            <p>
+                                                <?= $event['content'] ?>
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="event mb-4">
-                        <div class="row row-lg-eq-height">
-                            <div class="col-lg-3 event_col">
-                                <div class="event_image_container">
-                                    <a href="#" class="background_image" style="background-image:url(public/image/event.jpg)">
-                                    </a>
-                                    <div class="date_container">
-                                        <a href="#">
-                                            <span
-                                                class="date_content d-flex flex-column align-items-center justify-content-center">
-                                                <div class="date_month">9月</div>
-                                                <div class="date_day">15</div>
-                                            </span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-9 event_col">
-                                <div class="event_content">
-                                    <div class="event_title">ダミータイトルです。</div>
-                                    <div class="event_location">@オンラインイベント株式会社</div>
-                                    <div class="event_text">
-                                        <p>誰かが恐れ、悲しみの層にひれ伏すまで。 今はまだ始まったばかりですが、
-                                        メンバーは今、クラスの限界です。 このクラスは、静かに海岸に向かう仲間に適しています。
-                                        彼らは私たちの結婚生活やヒメナエの計画を通してねじれます。 以前でも
-                                        ライフ プール トラック vulputate チョコレートアキュムさん社員まで。</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="event mb-4">
-                        <div class="row row-lg-eq-height">
-                            <div class="col-lg-3 event_col">
-                                <div class="event_image_container">
-                                    <a href="#" class="background_image" style="background-image:url(public/image/event.jpg)">
-                                    </a>
-                                    <div class="date_container">
-                                        <a href="#">
-                                            <span
-                                                class="date_content d-flex flex-column align-items-center justify-content-center">
-                                                <div class="date_month">9月</div>
-                                                <div class="date_day">15</div>
-                                            </span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-9 event_col">
-                                <div class="event_content">
-                                    <div class="event_title">ダミータイトルです。</div>
-                                    <div class="event_location">@オンラインイベント株式会社</div>
-                                    <div class="event_text">
-                                        <p>誰かが恐れ、悲しみの層にひれ伏すまで。 今はまだ始まったばかりですが、
-                                        メンバーは今、クラスの限界です。 このクラスは、静かに海岸に向かう仲間に適しています。
-                                        彼らは私たちの結婚生活やヒメナエの計画を通してねじれます。 以前でも
-                                        ライフ プール トラック vulputate チョコレートアキュムさん社員まで。</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <?php endforeach; ?>
+                    <?php 
+                    if(empty($old_events)){
+                        echo '<h4 class="text-center">表示するイベントはありません。</h4>';
+                    }
+                    ?>
                 </div>
             </div>
             <!-- <div class="row">
