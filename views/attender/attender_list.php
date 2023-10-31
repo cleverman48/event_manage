@@ -25,7 +25,8 @@
                                 <div class="modal-body">
                                     <div class="mx-auto" style="width: max-content;">
                                         <p><span class="far fa-thumbs-up text-primary"></span> マッチング希望(自分→相手)</p>
-                                        <p><span class="far fa-thumbs-up text-success flipped-icon"></span> マッチングオファー希望(自分←相手)</p>
+                                        <p><span class="far fa-thumbs-up text-success flipped-icon"></span>
+                                            マッチングオファー希望(自分←相手)</p>
                                         <p><span class="far fa-star text-warning"></span> 双方マッチング</p>
                                         <p><span class="far fa-heart text-danger"></span> 招待した人</p>
 
@@ -51,172 +52,27 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td class="text-center">1</td>
-                                        <td class="text-center">dfsdfs</td>
-                                        <td class="text-center">dfsdfs</td>
-                                        <td class="text-center">
-                                            <span class="far fa-thumbs-up text-primary"></span>
-                                            <span class="far fa-heart text-danger"></span>
-                                        </td>
-                                        <td class="text-center">
-                                            <button class="btn btn-primary mt-1">詳細</button>
-                                            <button class="btn btn-warning mt-1">マッチング希望</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">2</td>
-                                        <td class="text-center">ased</td>
-                                        <td class="text-center">ased</td>
-                                        <td class="text-center">
-                                            <span class="far fa-thumbs-up text-success flipped-icon"></span>
-                                        </td>
-                                        <td class="text-center">
-                                            <button class="btn btn-primary mt-1">詳細</button>
-                                            <button class="btn btn-warning mt-1">マッチング希望</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">3</td>
-                                        <td class="text-center">ased</td>
-                                        <td class="text-center">ased</td>
-                                        <td class="text-center">
-                                            <span class="far fa-star text-warning"></span>
-                                        </td>
-                                        <td class="text-center">
-                                            <button class="btn btn-primary mt-1">詳細</button>
-                                            <button class="btn btn-warning mt-1">マッチング希望</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">4</td>
-                                        <td class="text-center">ased</td>
-                                        <td class="text-center">ased</td>
-                                        <td class="text-center">
-                                            <span class="far fa-thumbs-up text-primary"></span>
-                                        </td>
-                                        <td class="text-center">
-                                            <button class="btn btn-primary mt-1">詳細</button>
-                                            <button class="btn btn-warning mt-1">マッチング希望</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">5</td>
-                                        <td class="text-center">ased</td>
-                                        <td class="text-center">ased</td>
-                                        <td class="text-center">
-                                        </td>
-                                        <td class="text-center">
-                                            <button class="btn btn-primary mt-1">詳細</button>
-                                            <button class="btn btn-warning mt-1">マッチング希望</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">6</td>
-                                        <td class="text-center">ased</td>
-                                        <td class="text-center">ased</td>
-                                        <td class="text-center">
-                                            <span class="far fa-thumbs-up text-primary"></span>
-                                        </td>
-                                        <td class="text-center">
-                                            <button class="btn btn-primary mt-1">詳細</button>
-                                            <button class="btn btn-warning mt-1">マッチング希望</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">7</td>
-                                        <td class="text-center">ased</td>
-                                        <td class="text-center">ased</td>
-                                        <td class="text-center">
-                                        </td>
-                                        <td class="text-center">
-                                            <button class="btn btn-primary mt-1">詳細</button>
-                                            <button class="btn btn-warning mt-1">マッチング希望</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">8</td>
-                                        <td class="text-center">ased</td>
-                                        <td class="text-center">ased</td>
-                                        <td class="text-center">
-                                            <span class="far fa-thumbs-up text-success flipped-icon"></span>
-                                        </td>
-                                        <td class="text-center">
-                                            <button class="btn btn-primary mt-1">詳細</button>
-                                            <button class="btn btn-warning mt-1">マッチング希望</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">9</td>
-                                        <td class="text-center">ased</td>
-                                        <td class="text-center">ased</td>
-                                        <td class="text-center">
-                                            <span class="far fa-star text-warning"></span>
-                                        </td>
-                                        <td class="text-center">
-                                            <button class="btn btn-primary mt-1">詳細</button>
-                                            <button class="btn btn-warning mt-1">マッチング希望</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">10</td>
-                                        <td class="text-center">ased</td>
-                                        <td class="text-center">ased</td>
-                                        <td class="text-center">
-                                            <span class="far fa-thumbs-up text-primary"></span>
-                                        </td>
-                                        <td class="text-center">
-                                            <button class="btn btn-primary mt-1">詳細</button>
-                                            <button class="btn btn-warning mt-1">マッチング希望</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">11</td>
-                                        <td class="text-center">ased</td>
-                                        <td class="text-center">ased</td>
-                                        <td class="text-center">
-                                        </td>
-                                        <td class="text-center">
-                                            <button class="btn btn-primary mt-1">詳細</button>
-                                            <button class="btn btn-warning mt-1">マッチング希望</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">12</td>
-                                        <td class="text-center">ased</td>
-                                        <td class="text-center">ased</td>
-                                        <td class="text-center">
-                                            <span class="far fa-star text-warning"></span>
-                                        </td>
-                                        <td class="text-center">
-                                            <button class="btn btn-primary mt-1">詳細</button>
-                                            <button class="btn btn-warning mt-1">マッチング希望</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">13</td>
-                                        <td class="text-center">ased</td>
-                                        <td class="text-center">ased</td>
-                                        <td class="text-center">
-                                            <span class="far fa-thumbs-up text-success flipped-icon"></span>
-                                        </td>
-                                        <td class="text-center">
-                                            <button class="btn btn-primary mt-1">詳細</button>
-                                            <button class="btn btn-warning mt-1">マッチング希望</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">14</td>
-                                        <td class="text-center">ased</td>
-                                        <td class="text-center">ased</td>
-                                        <td class="text-center">
-                                            <span class="far fa-star text-warning"></span>
-                                        </td>
-                                        <td class="text-center">
-                                            <button class="btn btn-primary mt-1">詳細</button>
-                                            <button class="btn btn-warning mt-1">マッチング希望</button>
-                                        </td>
-                                    </tr>
+                                    <?php $i = 1;
+                                    foreach ($attenders as $attender): ?>
+                                        <tr>
+                                            <td class="text-center">
+                                                <?= $i++; ?>
+                                            </td>
+                                            <td class="text-center">
+                                                <?= $attender['userID'] ?>
+                                            </td>
+                                            <td class="text-center">
+                                                <?= $attender['lastname'] . $attender['firstname'] ?>
+                                            </td>
+                                            <td class="text-center">
+                                                <?= isMatch($attender['matched_user'], $attender['bematched_user']) ?>
+                                            </td>
+                                            <td class="text-center">
+                                                <button class="btn btn-primary mt-1">詳細</button>
+                                                <button class="btn btn-warning mt-1">マッチング希望</button>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
                         </div>

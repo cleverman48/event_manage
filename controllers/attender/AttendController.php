@@ -14,13 +14,16 @@ class AttendController
         $event2userModel = new Event2UserModel();
         $event2user = $event2userModel->user2events($_SESSION['login_user']);
         $attend_events = where($event2user, ['event_date:>' => $today]);
-        $old_events = where($event2user, ['event_date:=<' => $today]);
+        $old_events = where($event2user, ['event_date:<=' => $today]);
         require 'views/attender/header.php';
         require 'views/attender/attend_event.php';
         require 'views/footer.php';
     }
     public function attender_list()
     {
+        $event_id = $_GET['event'];
+        $event2userModel = new Event2UserModel();
+        $attenders = $event2userModel->getAttenderList($event_id);
         require 'views/attender/header.php';
         require 'views/attender/attender_list.php';
         require 'views/footer.php';
@@ -51,6 +54,14 @@ class AttendController
         
         require 'views/attender/header.php';
         require 'views/attender/my_page.php';
+        require 'views/footer.php';
+    }
+    public function attenderPage()
+    {
+        $userID = $_GET['userID'];
+        $attender = $this->get($userID);
+        require 'views/attender/header.php';
+        require 'views/attender/attenderPage.php';
         require 'views/footer.php';
     }
     public function previewProfile()
