@@ -42,7 +42,7 @@ class Event2UserModel {
     {
         $query = "SELECT e.* FROM event2users eu
                   JOIN events e ON eu.event_id = e.id
-                  WHERE eu.user_id = :user AND eu.part_in = 1";
+                  WHERE eu.user_id = :user AND eu.part_in = 1 ORDER BY e.event_date";
         $stmt = $this->db->prepare($query);
         $stmt->bindParam(':user', $user, PDO::PARAM_INT);
         $stmt->execute();
@@ -64,7 +64,6 @@ class Event2UserModel {
         $stmt->bindParam(':event_id', $event_id);
         $stmt->execute();
         return;
-        
     }
     public function attendEvent()
     {
@@ -82,7 +81,7 @@ class Event2UserModel {
     {
         $query = "SELECT u.*, eu.* FROM event2users eu
                   JOIN users u ON eu.user_id = u.id
-                  WHERE eu.event_id = '$event_id' AND eu.part_in = 1";
+                  WHERE eu.event_id = '$event_id' AND eu.part_in = 1 ORDER BY eu.created_at";
         $stmt = $this->db->prepare($query);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);

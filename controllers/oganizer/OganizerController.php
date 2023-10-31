@@ -12,7 +12,6 @@ class OganizerController
     {
         echo "success";
     }
-
     public function event_insert()
     {  
         $eventName = $_POST["eventName"];
@@ -39,7 +38,7 @@ class OganizerController
         $row = [
             'event_name' => $eventName,
             'event_date' => $eventDateTime->format('Y-m-d'),
-            'event_time' => $eventDateTime->format('H:i:s'),
+            'event_time' => $eventDateTime->format('H:i'),
             'event_venue' => $venue,
             'event_address' => $address,
             'event_url' => $url,
@@ -53,18 +52,11 @@ class OganizerController
             'event_id' => $event_id,
             'event_state'=>"Waiting"
         ];
-        // for($i=0; $i<50; $i++)
-        // {
-        //     $row['event_id'] = $this->generateUniqueID();
-        //     $row['event_name'] = $eventName."-".$i;
-        //     $this->event_model->createEvent($row);
-        // }
         $last_id = $this->event_model->createEvent($row);
         if($last_id)
         {
             echo "success";
         }
-
     }
     public function event_update()
     {
@@ -96,7 +88,7 @@ class OganizerController
             'event_id' => $event_id,
             'event_name' => $eventName,
             'event_date' => $eventDateTime->format('Y-m-d'),
-            'event_time' => $eventDateTime->format('H:i:s'),
+            'event_time' => $eventDateTime->format('H:i'),
             'event_venue' => $venue,
             'event_address' => $address,
             'event_url' => $url,
