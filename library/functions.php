@@ -6,7 +6,6 @@ function sanitizeInput($input)
     $input = htmlspecialchars($input);
     return $input;
 }
-
 function hashPassword($password)
 {
     $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
@@ -94,7 +93,6 @@ function where($data, $conditions)
             $keys = explode(':', $key);
             $field = $keys[0];
             $operator = $keys[1] ?? '=';
-
             if (!isset($item[$field]) || !compareValue($item[$field], $operator, $value)) {
                 $match = false;
                 break;
@@ -107,7 +105,6 @@ function where($data, $conditions)
 
     return $filteredData;
 }
-
 function compareValue($value, $operator, $compare)
 {
     switch ($operator) {
@@ -125,8 +122,8 @@ function compareValue($value, $operator, $compare)
             return false;
     }
 }
-
-function isFavoriteExists($user_id, $event_id){
+function isFavoriteExists($user_id, $event_id)
+{
     $user_id = (int)$user_id;
     $event_id = (int)$event_id;
     global $event_db;
@@ -137,5 +134,33 @@ function isFavoriteExists($user_id, $event_id){
         return $event2user[0]['favorite'];
     }
     return 0;
+}
+function isPartIn($user_id, $event_id)
+{
+    $user_id = (int)$user_id;
+    $event_id = (int)$event_id;
+    global $event_db;
+    $stmt = $event_db->prepare("SELECT * FROM event2users WHERE user_id = '$user_id' AND event_id = '$event_id' ");
+    $stmt->execute();
+    $event2user = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    if($event2user){
+        return $event2user[0]['part_in'];
+    }
+    return 0;
+}
+function isMatch($match, $bematch)
+{
+    $match = explode(',', $match);
+    $bematch = explode(',', $bematch);
+    $user_id = $_SESSION['login_user'];
+    if(in_array($user_id, $match) && in_array($user_id, $bematch)){
+        return '<span class="far fa-heart text-danger"></span>';
+    }else if(in_array($user_id, $match)){
+        return '<span class="far fa-thumbs-up text-primary"></span>';
+    }else if(in_array($user_id, $bematch)){
+        return '<span class="far fa-thumbs-up text-success flipped-icon"></span>';
+    }else{
+        return '';
+    }
 }
 ?>

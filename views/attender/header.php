@@ -63,7 +63,9 @@
         aria-labelledby="notificationSettingModalLabel" aria-hidden="true">
     <?php
     $userModel = new UserModel();
-    $user = $userModel->get($_SESSION['login_userID']);
+    if(isset($_SESSION['login_userID'])) {
+        $user = $userModel->get($_SESSION['login_userID']);
+    }
     ?>
         <div class="modal-dialog" role="document">
             <form action="index.php" method="post">

@@ -16,8 +16,8 @@ class Event2UserModel {
             user_id INT(11),
             favorite BOOLEAN,
             part_in BOOLEAN,
-            matched_user INT(11),
-            bematched_user INT(11),
+            matched_user text DEFAULT '',
+            bematched_user text DEFAULT '',
             FOREIGN KEY (event_id) REFERENCES events(id),
             FOREIGN KEY (user_id) REFERENCES users(id),
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -77,6 +77,16 @@ class Event2UserModel {
             AND event_id = '$event_id'");
         $stmt->execute();
         return;
+    }
+    public function getAttenderList($event_id)
+    {
+        $query = "SELECT u.*, eu.* FROM event2users eu
+                  JOIN users u ON eu.user_id = u.id
+                  WHERE eu.event_id = '$event_id' AND eu.part_in = 1";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
     }
     private function isRowExists($user_id, $event_id)
     {
