@@ -37,7 +37,6 @@ class RegistrationController
             require 'views/registration.php';
         }
     }
-
     private function validateRegistration($lastName, $firstName, $email, $password)
     {
         $lastName_err = '';

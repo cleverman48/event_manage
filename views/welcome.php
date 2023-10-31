@@ -60,7 +60,7 @@
                                             <div class="col-4 event_share text-center">
                                                 <button id="add_favorite[<?= $event['id'] ?>]"
                                                     onclick="add_favorite(<?= $event['id'] ?>)"
-                                                    class="btn btn-light p-1 mr-1 <?php echo (isFavoriteExists($_SESSION['login_user'], $event['id']) == 1) ? 'fas text-danger' : 'far'; ?> fa-heart"></button>
+                                                    class="btn btn-light p-1 mr-1 <?php echo (isFavoriteExists((isset($_SESSION['login_user'])) ? $_SESSION['login_user'] : 0, $event['id']) == 1) ? 'fas text-danger' : 'far'; ?> fa-heart"></button>
                                                 <button id="event_share[<?= $event['id'] ?>]"
                                                     onclick="event_share(<?= $event['id'] ?>)"
                                                     class="btn btn-light p-1 far fa-share-square"></button>
@@ -93,7 +93,7 @@
                                             </a>
                                         </div>
                                         <div class="event_buttons">
-                                            <?php if (isPartIn($_SESSION['login_user'], $event['id']) == 0): ?>
+                                            <?php if (isPartIn((isset($_SESSION['login_user'])) ? $_SESSION['login_user'] : 0, $event['id']) == 0): ?>
                                                 <a href="index.php?action=attendEvent&event=<?php echo $event['id']; ?>"
                                                     class="event_button event_button_1 btn btn-primary">参加する!</a>
                                                 <a class="btn btn-warning event_button event_button_2" data-toggle="modal"

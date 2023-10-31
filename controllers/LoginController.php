@@ -27,14 +27,12 @@ class LoginController
             require 'views/login.php';
         }
     }
-    
     public function logout(){
         session_unset();
         session_destroy();
         header('Location: index.php');
         exit;
     }
-    
     public function reset()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -59,7 +57,6 @@ class LoginController
             require 'views/resetPassword.php';
         }
     }
-    
     private function validateCredentials($email, $password)
     {
         $email_err = '';
