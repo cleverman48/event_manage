@@ -5,12 +5,13 @@ class EventModel {
     private $db; // Database connection or ORM instance
 
     // Constructor
-    public function __construct() {
+    public function __construct() 
+    {
         global $event_db;
         $this->db = $event_db;
         // Check if the "events" table exists, if not, create it
         $createTableQuery = "CREATE TABLE IF NOT EXISTS events (
-            id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+            id INT(11) AUTO_INCREMENT PRIMARY KEY,
             event_id VARCHAR(255) NOT NULL,
             event_state VARCHAR(255) NOT NULL,
             event_oganizer VARCHAR(255) NOT NULL,
@@ -20,12 +21,14 @@ class EventModel {
             event_venue VARCHAR(255) NOT NULL,
             event_address VARCHAR(255) NOT NULL,
             event_url VARCHAR(255) NOT NULL,
-            participation_fee DECIMAL(10, 2) NOT NULL,
+            participation_fee INT(11) NOT NULL,
             num_participants INT(11) NOT NULL,
             matching_restrictions TEXT ,
             tags VARCHAR(255) ,
             image_path VARCHAR(255) ,
-            content TEXT 
+            content TEXT,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
         )";
 
         if ($this->db->query($createTableQuery) === FALSE) {

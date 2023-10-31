@@ -1,4 +1,5 @@
 <div class="dashboard-wrapper mx-auto mt-2">
+    <input type="hidden" id="user_id" value="<?php echo $_SESSION['login_user'] ;?>">
     <div class="w-100 dashboard-img position-relative">
         <img class="w-100 h-100" src="public/image/back.jpg" alt="">
         <div class="position-absolute w-100" style="bottom: 130px;">
@@ -46,8 +47,8 @@
                                             <?php endforeach; ?>
                                         </div>
                                         <div class="col-4 event_share text-center">
-                                            <button id="add_favorite[<?= $event['event_id']?>]" onclick="add_favorite(<?= $event['event_id']?>)" class="btn btn-light p-1 mr-1 far fa-heart"></button>
-                                            <button id="event_share[<?= $event['event_id']?>]" onclick="event_share(<?= $event['event_id']?>)" class="btn btn-light p-1 far fa-share-square"></button>
+                                            <button id="add_favorite[<?= $event['id']?>]" onclick="add_favorite(<?= $event['id']?>)" class="btn btn-light p-1 mr-1 <?php echo (isFavoriteExists($_SESSION['login_user'], $event['id']) == 1) ? 'fas text-danger' : 'far';?> fa-heart"></button>
+                                            <button id="event_share[<?= $event['id']?>]" onclick="event_share(<?= $event['id']?>)" class="btn btn-light p-1 far fa-share-square"></button>
                                         </div>
                                     </div>
                                     <div class="event_text">
@@ -71,7 +72,7 @@
                                         </a>
                                     </div>
                                     <div class="event_buttons">
-                                        <a class="btn btn-primary event_button event_button_1 btn btn-primary" href="#">参加する!</a>
+                                        <a href="index.php?action=attendEvent&event=<?php echo $event['id'] ;?>" class="btn btn-primary event_button event_button_1 btn btn-primary">参加する!</a>
                                         <a class="btn btn-warning event_button event_button_2" href="index.php?action=attender_list">参加者一覧</a>
                                     </div>
                                 </div>
@@ -86,17 +87,6 @@
                     ?>
                 </div>
             </div>
-            <!-- <div class="row">
-                <div class="col">
-                    <div class="pagination">
-                        <ul>
-                            <li class="active"><a href="#">01.</a></li>
-                            <li><a href="#">02.</a></li>
-                            <li><a href="#">03.</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div> -->
         </div>
     </div>
 </div>

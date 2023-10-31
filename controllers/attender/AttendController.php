@@ -1,5 +1,6 @@
 <?php
 require_once 'models/UserModel.php';
+require_once 'models/Event2UserModel.php';
 class AttendController
 {
     private $db;
@@ -9,6 +10,11 @@ class AttendController
     }
     public function attend_event()
     {
+        $today = date('Y-m-d');
+        $event2userModel = new Event2UserModel();
+        $event2user = $event2userModel->user2events($_SESSION['login_user']);
+        $attend_events = where($event2user, ['event_date:>' => $today]);
+        $old_events = where($event2user, ['event_date:=<' => $today]);
         require 'views/attender/header.php';
         require 'views/attender/attend_event.php';
         require 'views/footer.php';
@@ -77,6 +83,17 @@ class AttendController
     {
         $attenderModel = new UserModel();
         $attenderModel->update();
+    }
+    public function add_favorite()
+    {
+        $attenderModel = new Event2UserModel();
+        $attenderModel->add_favorite();
+    }
+    public function attendEvent()
+    {
+        $attenderModel = new Event2UserModel();
+        $attenderModel->attendEvent();
+        return;
     }
 }
 ?>

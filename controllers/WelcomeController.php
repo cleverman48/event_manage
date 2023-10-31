@@ -1,6 +1,7 @@
 <?php
 require_once 'models/UserModel.php';
 require_once 'models/EventModel.php';
+require_once 'models/Event2UserModel.php';
 class WelcomeController
 {
     public function index()
@@ -10,7 +11,9 @@ class WelcomeController
 
         $userModel = new UserModel();
         $users = $userModel->all();
-
+        
+        $event2userModel = new Event2UserModel();
+        $event2users = $event2userModel->all();
         require 'views/attender/header.php';
         require 'views/welcome.php';
         require 'views/footer.php';
