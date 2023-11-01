@@ -1,4 +1,3 @@
-<!-- <link rel="stylesheet" href="public/css/oganizer/event_regist.css"> -->
 <link rel="stylesheet" href="assets/vendor/select2/css/select2.css">
 <link href="assets/vendor/summernote/css/summernote-bs4.css" rel="stylesheet" />
 <div class="dashboard-wrapper mt-1">
@@ -78,7 +77,7 @@
                             <label class="col-12 col-sm-3 col-form-label text-sm-right">タグ:</label>
                             <div class="col-12 col-sm-8 col-lg-6">
                                 <select class="js-example-basic-multiple" class="form-control" multiple="multiple">
-                                    <option value="人材開発" selected="selected">人材開発</option>
+                                    <option value="人材開発">人材開発</option>
                                     <option value="法務">法務</option>
                                 </select>
                             </div>
@@ -90,7 +89,7 @@
                                     accept="image/*">
                                 <div style="max-width: max-content;" class="mx-auto mt-4">
                                     <img id="imagePreview" src="" alt="画像プレビュー"
-                                        style="width: 150px; height: 150px; object-fit: cover;">
+                                        style="height: 150px; object-fit: cover;">
                                 </div>
                             </div>
                         </div>

@@ -75,23 +75,6 @@ $(document).ready(function () {
             }
         });
     });
-
-    $('#tag').keypress(function (event) {
-        if (event.key === 'Enter') {
-            event.preventDefault(); // Prevent form submission
-
-            var tagValue = $(this).val().trim();
-
-            if (tagValue !== '') {
-                // Do something with the tag value, e.g., add it to a list of tags
-                console.log('Tag:', tagValue);
-
-                // Clear the input field
-                $(this).val('');
-            }
-        }
-    });
-    
 });
 
 function go_eventlist() {

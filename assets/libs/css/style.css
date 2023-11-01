@@ -5283,12 +5283,12 @@ Vertical Timeline - by CodyHouse.co
 }
 
 .user-avatar-lg {
-    height: 48px;
-    width: 48px;
+    /* height: 50px; */
+    width: 50px;
 }
 
 .user-avatar-md {
-    height: 32px;
+    /* height: 32px; */
     width: 32px;
 }
 
