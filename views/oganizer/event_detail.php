@@ -71,7 +71,7 @@
                                 class="col-12 col-sm-3 col-form-label text-sm-right">人数:</label>
                             <div class="col-12 col-sm-8 col-lg-6">
                                 <input type="number" value="<?php echo $event['num_participants']; ?>"
-                                    name="numParticipants" id="numParticipants" class="form-control possibleChange"
+                                    name="numParticipants" max="500" id="numParticipants" class="form-control possibleChange"
                                     disabled required>
                             </div>
                         </div>
@@ -125,7 +125,7 @@
                         </div>
                     </div>
                     <div class="form-group row align-items-center">
-                        <label for="attender_url" class="col-12 col-sm-3 col-form-label text-sm-right">イベントID:</label>
+                        <label for="attender_url" class="col-12 col-sm-3 col-form-label text-sm-right">イベント詳細ページ:</label>
                         <div class="col-8 col-sm-8 col-lg-6">
                             <div class="row">
                                 <input type="text" value="<?php echo $event['event_url']; ?>" name="attender_url"
@@ -150,4 +150,14 @@
 </div>
 <script src="assets/vendor/select2/js/select2.min.js"></script>
 <script src="assets/vendor/summernote/js/summernote-bs4.js"></script>
+<script src="assets/vendor/datetimepicker/jquery.datetimepicker.full.min.js"></script>
 <script src="public/js/oganizer/event_detail.js"></script>
+<script>
+     $(document).ready(function() {
+        $('#eventDateTime').datetimepicker({
+            format: 'Y-m-d H:i',
+            step: 5,
+            lang: 'ch'
+        });
+    });
+</script>
