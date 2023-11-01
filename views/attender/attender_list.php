@@ -65,11 +65,24 @@
                                                 <?= $attender['lastname'] . $attender['firstname'] ?>
                                             </td>
                                             <td class="text-center">
-                                                <?= isMatch($attender['matched_user'], $attender['bematched_user']) ?>
+                                                <?= isMatch($attender['matched'], $myevent['matched'], $attender['id']) ?>
                                             </td>
                                             <td class="text-center">
-                                                <button class="btn btn-primary mt-1">詳細</button>
-                                                <button class="btn btn-warning mt-1">マッチング希望</button>
+                                                <a href="index.php?action=attenderPage&userID=<?= $attender['userID'] ?>&event=<?php echo $event_id; ?>"
+                                                    class="btn btn-primary mt-1">詳細</a>
+                                                <?php $limit = limitMatch($attender['id'], $myevent['matched'], $attender['matching_restrictions']); ?>
+                                                <?php if ($limit == -2): ?>
+                                                    <a href="#" class="btn btn-light mt-1" data-toggle="modal"
+                                                        data-target="#limitAlertModal" data-limit="<?= $limit ?>">マッチング希望</a>
+                                                <?php elseif ($limit == -1): ?>
+                                                    <a href="#" class="btn btn-light mt-1" data-toggle="modal"
+                                                        data-target="#limitAlertModal" data-limit="<?= $limit ?>">マッチング希望</a>
+                                                <?php else: ?>
+                                                    <a href="#" class="btn btn-warning mt-1" data-toggle="modal"
+                                                        data-attender="<?= $attender['id'] ?>" data-target="#limitAlertModal"
+                                                        data-limit="<?= $limit ?>"
+                                                        data-event="<?php echo $event_id; ?>">マッチング希望</a>
+                                                <?php endif; ?>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
@@ -83,6 +96,30 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="limitAlertModal" tabindex="-1" role="dialog" aria-labelledby="limitAlertModalLabel"
+    aria-hidden="true">
+    <!-- Modal content -->
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="limitAlertModalLabel">制限アラート</h5>
+                <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+            </div>
+            <div class="modal-body">
+                <div class="mx-auto">
+                    <p id="limitValue" class="text-center m-2"></p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#" id="closeModal" class="btn btn-primary" data-dismiss="modal">確認</a>
+                <a href="" id="confirmMatch" class="btn btn-primary">確認</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="assets/vendor/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="assets/vendor/datatables/js/dataTables.bootstrap4.min.js"></script>
 <script src="assets/vendor/datatables.net/js/dataTables.buttons.min.js"></script>
@@ -90,3 +127,30 @@
 <script src="assets/vendor/datatables/js/data-table.js"></script>
 <script src="assets/vendor/datatables.net/js/dataTables.select.min.js"></script>
 <script src="assets/vendor/datatables.net/js/dataTables.fixedHeader.min.js"></script>
+<script>
+    $('#limitAlertModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget); // Button that triggered the modal
+        var limit = button.data('limit'); // Extract the limit value from the button's data-limit attribute
+        var attender = button.data('attender'); // Extract the attender value from the button's data-attender attribute
+        var event = button.data('event'); // Extract the event value from the button's data-event attribute
+        var modal = $(this);
+        var limitText = '';
+        var matchUrl = 'index.php?action=matchAttender&attender_id=' + attender + '&event=' + event;
+        $('#confirmMatch').attr('href', matchUrl);
+
+        if (limit == -2) {
+            limitText = 'すでにマッチングが希望されています。';
+            $('#confirmMatch').hide();
+            $('#closeModal').show();
+        } else if (limit == -1) {
+            limitText = 'マッチング希望数が上限に達しました。当日、主催者が直接ご希望を承ります。';
+            $('#confirmMatch').hide();
+            $('#closeModal').show();
+        } else {
+            limitText = 'あと、' + limit + '件マッチング希望が出せます。';
+            $('#confirmMatch').show();
+            $('#closeModal').hide();
+        }
+        modal.find('#limitValue').text(limitText); // Update the modal's content with the limit value
+    });
+</script>

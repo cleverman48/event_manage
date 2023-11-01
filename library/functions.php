@@ -148,19 +148,30 @@ function isPartIn($user_id, $event_id)
     }
     return 0;
 }
-function isMatch($match, $bematch)
+function isMatch($match, $bematch, $attender_id)
 {
     $match = explode(',', $match);
     $bematch = explode(',', $bematch);
     $user_id = $_SESSION['login_user'];
-    if(in_array($user_id, $match) && in_array($user_id, $bematch)){
+    if(in_array($user_id, $match) && in_array($attender_id, $bematch)){
         return '<span class="far fa-heart text-danger"></span>';
     }else if(in_array($user_id, $match)){
-        return '<span class="far fa-thumbs-up text-primary"></span>';
-    }else if(in_array($user_id, $bematch)){
         return '<span class="far fa-thumbs-up text-success flipped-icon"></span>';
+    }else if(in_array($attender_id, $bematch)){
+        return '<span class="far fa-thumbs-up text-primary"></span>';
     }else{
         return '';
+    }
+}
+function limitMatch( $attender_id, $bematch, $limit)
+{
+    $bematch = explode(',', $bematch);
+    if(in_array($attender_id, $bematch)){
+        return -2;
+    }elseif(count($bematch) > $limit){
+        return -1;
+    }elseif(count($bematch) <= $limit){
+        return $limit - count($bematch);
     }
 }
 ?>
