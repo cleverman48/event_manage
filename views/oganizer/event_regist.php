@@ -1,5 +1,3 @@
-<link rel="stylesheet" href="assets/vendor/select2/css/select2.css">
-<link href="assets/vendor/summernote/css/summernote-bs4.css" rel="stylesheet" />
 <div class="dashboard-wrapper mt-1">
     <div class="container-fluid dashboard-content col-lg-10 col-md-12 mx-auto">
         <div class="row"></div>
@@ -14,10 +12,11 @@
                             <label for="eventDateTime"
                                 class="col-12 col-sm-3 col-form-label text-sm-right">開催日時:</label>
                             <div class="col-12 col-sm-8 col-lg-6">
-                                <input type="datetime-local" name="eventDateTime" id="eventDateTime"
+                                <input type="datetime" name="eventDateTime" id="eventDateTime"
                                     class="form-control" required>
                             </div>
                         </div>
+
                         <div class="form-group row">
                             <label for="eventName" class="col-12 col-sm-3 col-form-label text-sm-right">イベント名:</label>
                             <div class="col-12 col-sm-8 col-lg-6">
@@ -54,7 +53,7 @@
                             <label for="numParticipants"
                                 class="col-12 col-sm-3 col-form-label text-sm-right">人数:</label>
                             <div class="col-12 col-sm-8 col-lg-6">
-                                <input type="number" name="numParticipants" id="numParticipants" class="form-control"
+                                <input type="number" max="500" name="numParticipants" id="numParticipants" class="form-control"
                                     required>
                             </div>
                         </div>
@@ -62,8 +61,8 @@
                             <label for="matchingRestrictions"
                                 class="col-12 col-sm-3 col-form-label text-sm-right">マッチング制限:</label>
                             <div class="col-12 col-sm-8 col-lg-6">
-                                <input type="number" min="1" max="5" list="options" name="matchingRestrictions" id="matchingRestrictions"
-                                    class="form-control" required>
+                                <input type="number" min="1" max="5" list="options" name="matchingRestrictions"
+                                    id="matchingRestrictions" class="form-control" required>
                                 <datalist id="options">
                                     <option value="1"></option>
                                     <option value="2"></option>
@@ -112,4 +111,14 @@
 </div>
 <script src="assets/vendor/select2/js/select2.min.js"></script>
 <script src="assets/vendor/summernote/js/summernote-bs4.js"></script>
+<script src="assets/vendor/datetimepicker/jquery.datetimepicker.full.min.js"></script>
 <script src="public/js/oganizer/event_regist.js"></script>
+<script>
+     $(document).ready(function() {
+        $('#eventDateTime').datetimepicker({
+            format: 'Y-m-d H:i',
+            step: 5,
+            lang: 'ch'
+        });
+    });
+</script>

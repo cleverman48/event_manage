@@ -1,13 +1,28 @@
 $(document).ready(function () {
-    $('.js-example-basic-multiple').select2({ 
+    $('.js-example-basic-multiple').select2({
         tags: true,
-        maximumSelectionLength: 5 
+        maximumSelectionLength: 5,
+        createTag: function (params) {
+            // Validate the input to allow only valid Japanese characters
+            var term = $.trim(params.term);
+            if (term === '') {
+                return null;
+            }
+            if (/^[ぁ-んァ-ン一-龯ーa-zA-Z0-9０-９々〆〤]+$/.test(term)) {
+                return {
+                    id: term,
+                    text: term
+                };
+            }
+            return null;
+        }
     });
 
     $('#summernote').summernote({
         height: 200
 
     });
+    
     $('#image').change(function () {
         var input = this;
         var preview = $('#imagePreview');
