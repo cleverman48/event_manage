@@ -37,20 +37,18 @@ class EventModel {
             exit();
         }
     }
-
-    // Method to retrieve all events
-    public function getAllEvents() {
+    public function getAllEvents() 
+    {
         // Implement your logic to fetch events from the database or any other data source
         // Example code using PDO:
-        $query = "SELECT * FROM events";
+        $query = "SELECT * FROM events ORDER BY event_date DESC";
         $stmt = $this->db->prepare($query);
         $stmt->execute();
         $events = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $events;
     }
-
-    // Method to create a new event
-    public function createEvent($eventData) {
+    public function createEvent($eventData) 
+    {
         // Implement your logic to create a new event in the database or any other data source
         // Example code using PDO:
         $query = "INSERT INTO events (event_id,event_state,event_oganizer,event_name, event_date, event_time,event_venue,event_address,event_url,participation_fee,num_participants,matching_restrictions,tags,image_path,content)".
@@ -75,8 +73,6 @@ class EventModel {
         $eventId = $this->db->lastInsertId();
         return $eventId;
     }
-
-    // Method to retrieve a specific event by ID
     public function getEventById($eventId) {
         // Implement your logic to fetch a specific event from the database or any other data source
         // Example code using PDO:
@@ -87,11 +83,7 @@ class EventModel {
         $event = $stmt->fetch(PDO::FETCH_ASSOC);
         return $event;
     }
-
-    // Method to update an existing event
     public function updateEvent($eventData) {
-        // Implement your logic to update an event in the database or any other data source
-        // Example code using PDO:
         $query = "UPDATE events SET ". 
             "event_oganizer = :event_oganizer, ".
             "event_name = :event_name, ".
@@ -134,9 +126,6 @@ class EventModel {
             return false;
         }
     }
-    
-
-    // Method to delete an event
     public function deleteEvent($eventId) {
         // Implement your logic to delete an event from the database or any other data source
         // Example code using PDO:

@@ -3,7 +3,7 @@ function add_favorite(id) {
     var user_id = $('#user_id').val();
     if ($(item).hasClass('far')) {
         favorite = 1;
-    }else{
+    } else {
         favorite = 0;
     }
     $.ajax({
@@ -26,6 +26,10 @@ function event_share() {
 
 }
 $(document).ready(function () {
+    var backgroundImage = $(".background_image");
+    var backgroundImageHeight = backgroundImage.height();
+    $(".event_image_container").height(backgroundImageHeight);
+
     if ($('#returnPage').val() == 'true') {
         $('.possibleChange').prop('disabled', false);
         $('#changeButton').hide();

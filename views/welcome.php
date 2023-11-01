@@ -22,7 +22,7 @@
                         <div class="event">
                             <div class="row row-lg-eq-height">
                                 <div class="col-lg-6 event_col">
-                                    <div href="#" class="event_image_container">
+                                    <div class="event_image_container">
                                         <div class="background_image"
                                             style="background-image:url(<?= $event['image_path'] ?>)">
                                         </div>

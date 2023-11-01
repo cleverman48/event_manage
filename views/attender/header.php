@@ -21,7 +21,7 @@
     <div class="dashboard-main-wrapper">
         <div class="dashboard-header">
             <nav class="navbar navbar-expand-lg bg-white fixed-top d-flex justify-content-between">
-                <a class="navbar-brand" href="index.php"><img class="logo" src="public/image/logo.png" alt=""></a>
+                <a class="navbar-brand mr-0" href="index.php"><img class="logo" src="public/image/logo.png" alt=""></a>
                 <div class="" id="navbarSupportedContent">
                     <ul class="d-flex pl-0 mb-0 list-unstyled ml-auto navbar-right-top">
                         <div class="head_bt_pan mr-3 d-flex align-items-center">
@@ -32,7 +32,7 @@
                         <li class="nav-item dropdown nav-user">
                             <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="<?php echo my_avatar(); ?>" alt="" class="user-avatar-md rounded-circle">
+                                <img src="<?php echo my_avatar(); ?>" alt="" class="user-avatar-lg rounded-circle">
                                 <i class="fas fa-chevron-down mr-2"></i>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right nav-user-dropdown"

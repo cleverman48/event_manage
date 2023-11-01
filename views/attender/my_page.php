@@ -23,7 +23,7 @@
                                 <input type="file" name="avatar" id="avatarInput" class="form-control-file possibleChange" disabled accept="image/*">
                                 <input type="hidden" name="avatar" value="<?php echo  (isset($avatar)) ? $avatar : $attender['avatar'] ;?>">
                                 <div style="max-width: max-content;" class="mx-auto mt-4">
-                                    <img id="avatarPreview" src="<?php echo (isset($avatar)) ? $avatar : $attender['avatar']?>" alt="Avatar Preview" style="width: 150px; height: 150px; object-fit: cover;">
+                                    <img id="avatarPreview" src="<?php echo (isset($avatar)) ? $avatar : $attender['avatar']?>" alt="Avatar Preview" style="width: 150px; object-fit: cover;">
                                 </div>
                             </div>
                         </div>
