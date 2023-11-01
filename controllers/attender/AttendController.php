@@ -24,6 +24,7 @@ class AttendController
         $event_id = $_GET['event'];
         $event2userModel = new Event2UserModel();
         $attenders = $event2userModel->getAttenderList($event_id);
+        $myevent = $event2userModel->getMyEvent($event_id)[0];
         require 'views/attender/header.php';
         require 'views/attender/attender_list.php';
         require 'views/footer.php';
@@ -59,6 +60,7 @@ class AttendController
     public function attenderPage()
     {
         $userID = $_GET['userID'];
+        $event_id = $_GET['event'];
         $attender = $this->get($userID);
         require 'views/attender/header.php';
         require 'views/attender/attenderPage.php';
@@ -104,6 +106,12 @@ class AttendController
     {
         $attenderModel = new Event2UserModel();
         $attenderModel->attendEvent();
+        return;
+    }
+    public function matchAttender()
+    {
+        $attenderModel = new Event2UserModel();
+        $attenderModel->matchAttender();
         return;
     }
 }

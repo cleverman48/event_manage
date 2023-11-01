@@ -26,9 +26,9 @@ function event_share() {
 
 }
 $(document).ready(function () {
-    var backgroundImage = $(".background_image");
-    var backgroundImageHeight = backgroundImage.height();
-    $(".event_image_container").height(backgroundImageHeight);
+    // var backgroundImage = $(".background_image");
+    // var backgroundImageHeight = backgroundImage.height();
+    // $(".event_image_container").height(backgroundImageHeight);
 
     if ($('#returnPage').val() == 'true') {
         $('.possibleChange').prop('disabled', false);

@@ -108,6 +108,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $controller->attendEvent();
             header("Location: index.php?action=attend_event");
             break;
+        case 'attenderPage':
+            $controller = new AttendController();
+            $controller->attenderPage();
+            break;
+        case 'matchAttender':
+            $controller = new AttendController();
+            $controller->matchAttender();
+            header("Location: index.php?action=attender_list&event=".$_GET['event']);
+            break;
         default:
             // Handle invalid action
             break;

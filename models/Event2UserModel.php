@@ -1,11 +1,12 @@
 <?php
 
-class Event2UserModel {
+class Event2UserModel
+{
     // Properties
     private $db; // Database connection or ORM instance
 
     // Constructor
-    public function __construct() 
+    public function __construct()
     {
         global $event_db;
         $this->db = $event_db;
@@ -16,21 +17,20 @@ class Event2UserModel {
             user_id INT(11),
             favorite BOOLEAN,
             part_in BOOLEAN,
-            matched_user text DEFAULT '',
-            bematched_user text DEFAULT '',
+            matched TEXT DEFAULT '',
             FOREIGN KEY (event_id) REFERENCES events(id),
             FOREIGN KEY (user_id) REFERENCES users(id),
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )";
-        
+
         if ($this->db->query($sql) === FALSE) {
             echo "Error creating table: " . $this->db->error;
             $this->db->close();
             exit();
         }
     }
-    public function all() 
+    public function all()
     {
         $query = "SELECT * FROM event2users";
         $stmt = $this->db->prepare($query);
@@ -77,11 +77,33 @@ class Event2UserModel {
         $stmt->execute();
         return;
     }
+    public function matchAttender()
+    {
+        $event_id = $_GET['event'];
+        $user_id = $_SESSION['login_user'];
+        $attender_id = $_GET['attender_id'];
+        $stmt = $this->db->prepare("UPDATE event2users SET
+            matched = CONCAT(matched, ',$attender_id')
+            WHERE user_id = '$user_id'
+            AND event_id = '$event_id'");
+        $stmt->execute();
+        return;
+    }
     public function getAttenderList($event_id)
     {
-        $query = "SELECT u.*, eu.* FROM event2users eu
+        $query = "SELECT u.*, eu.matched, e.matching_restrictions FROM event2users eu
                   JOIN users u ON eu.user_id = u.id
+                  JOIN events e ON eu.event_id = e.id
                   WHERE eu.event_id = '$event_id' AND eu.part_in = 1 ORDER BY eu.created_at DESC";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+    public function getMyEvent($event_id)
+    {
+        $my_id = $_SESSION["login_user"];
+        $query = "SELECT * FROM event2users WHERE event_id = '$event_id' AND user_id = '$my_id' AND part_in = 1 ORDER BY created_at DESC";
         $stmt = $this->db->prepare($query);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -92,9 +114,9 @@ class Event2UserModel {
         $stmt = $this->db->prepare("SELECT COUNT(*) FROM event2users WHERE user_id = '$user_id' AND event_id = '$event_id' ");
         $stmt->execute([]);
         $count = $stmt->fetchColumn();
-        if($count > 0){
+        if ($count > 0) {
             return;
-        }else{
+        } else {
             $stmt = $this->db->prepare('INSERT INTO event2users (user_id, event_id) VALUES (?, ?)');
             $stmt->execute([$user_id, $event_id]);
         }
